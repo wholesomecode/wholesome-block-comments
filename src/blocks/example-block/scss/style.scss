@@ -1,0 +1,31 @@
+/**
+ * Styles
+ *
+ * The styles for the Block.
+ */
+
+.example-block {
+	align-items: flex-start;
+	background-color: #e2dccd;
+	display: flex;
+
+	&__figure {
+		margin: 1em;
+		margin-right: 1em;
+		width: 200px;
+	}
+
+	&__body {
+		flex: 1;
+		margin-right: 1em;
+	}
+
+	&.is-style-image-right {
+		flex-direction: row-reverse;
+
+		.example-block__body {
+			margin-left: 1em;
+			margin-right: 0;
+		}
+	}
+}
