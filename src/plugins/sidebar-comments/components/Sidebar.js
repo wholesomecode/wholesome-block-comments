@@ -68,14 +68,13 @@ import { __ } from '@wordpress/i18n';
  * name.
  */
 import settings from '../../../settings';
-
-// The prefix for our CSS classes.
-const baseClassName = 'sidebar-comments';
+// eslint-disable-next-line import/no-cycle
+import Comment from '../containers/Comment';
 
 // The name and title of the plugin, so that it can be registered and if
 // needed accessed within a filter.
-export const sidebarName = 'sidebar-comments'; // Could just set to baseClassName, but keeping full for example.
-export const sidebarTitle = __( 'Sidebar Comments', 'wholesome-publishing' );
+export const sidebarName = 'wholesome-publishing-comments';
+export const sidebarTitle = __( 'Comments', 'wholesome-publishing' );
 
 /**
  * Sidebar Comments.
@@ -96,8 +95,6 @@ class SidebarComments extends Component {
 		const exampleToggle = postMeta[ metaKeyExampleToggle ];
 		const blockComments = postMeta[ metaKeyBlockComments ];
 
-		console.log( blockComments );
-
 		return (
 			<Fragment>
 				<PluginSidebarMoreMenuItem target={ sidebarName }>
@@ -108,8 +105,8 @@ class SidebarComments extends Component {
 					title={ sidebarTitle }
 				>
 					<PanelBody
-						className={ `${ baseClassName }__example_panel` }
-						title={ __( 'Sidebar Comments', 'wholesome-publishing' ) }
+						className={ `${ sidebarName }__panel` }
+						title={ __( 'Comments', 'wholesome-publishing' ) }
 					>
 						<ToggleControl
 							checked={ exampleToggle }
@@ -128,9 +125,22 @@ class SidebarComments extends Component {
 							} }
 						/>
 						{
-							blockComments.map( ( { uid } ) => {
+							blockComments.map( ( {
+								authorID,
+								comment,
+								dateTime,
+								parent,
+								uid,
+							} ) => {
 								return (
-									<h1>{uid}</h1>
+									<Comment
+										authorID={ authorID }
+										comment={ comment }
+										dateTime={ dateTime }
+										key={ dateTime }
+										parent={ parent }
+										uid={ uid }
+									/>
 								);
 							} )
 						}

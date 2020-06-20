@@ -33,10 +33,12 @@ import PropTypes from 'prop-types';
 import { Button, Toolbar } from '@wordpress/components';
 import { BlockControls } from '@wordpress/block-editor';
 import { createHigherOrderComponent } from '@wordpress/compose';
+import { dispatch, select } from '@wordpress/data';
 import { Fragment } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
 import settings from '../../../settings';
+import { sidebarName as sidebarCommentsName } from '../../sidebar-comments/components/Sidebar';
 
 /**
  * Register Component
@@ -56,6 +58,7 @@ export default createHigherOrderComponent( ( BlockEdit ) => {
 
 		const { metaKeyBlockComments } = settings;
 		const blockComments = postMeta[ metaKeyBlockComments ];
+		const currentUserId = select( 'core' ).getCurrentUser().id;
 
 		// Add the inspector control, and the original component (BlockEdit).
 		return (
@@ -67,21 +70,31 @@ export default createHigherOrderComponent( ( BlockEdit ) => {
 							icon="admin-comments"
 							label={ __( 'Block Comments', 'wholesome-publishing' ) }
 							onClick={ () => {
-								editPost( {
-									...postMeta,
-									meta: {
-										[ metaKeyBlockComments ]: [
-											...blockComments,
-											{
-												// authorID: 0,
-												comment: '',
-												dateTime: parseInt( new Date().valueOf(), 10 ),
-												// parent: 0,
-												uid: parseInt( uid, 10 ),
-											},
-										],
-									},
-								} );
+								if ( ! blockComments.find( ( item ) => item.uid === parseInt( uid, 10 ) ) ) {
+									editPost( {
+										...postMeta,
+										meta: {
+											[ metaKeyBlockComments ]: [
+												...blockComments,
+												{
+													authorID: parseInt( currentUserId, 10 ),
+													comment: '',
+													dateTime: parseInt( new Date().valueOf(), 10 ),
+													parent: 0,
+													uid: parseInt( uid, 10 ),
+												},
+											],
+										},
+									} );
+								}
+								dispatch( 'core/edit-post' )
+									.openGeneralSidebar( `${ sidebarCommentsName }/${ sidebarCommentsName }` );
+
+								setTimeout( () => {
+									document.querySelector( `[data-block-comment='${ uid }']` )
+										.scrollIntoView( { behavior: 'smooth', block: 'end', inline: 'nearest' } );
+								},
+								200 );
 							} }
 						/>
 					</Toolbar>
@@ -96,7 +109,7 @@ export default createHigherOrderComponent( ( BlockEdit ) => {
 			uid: PropTypes.string,
 		} ).isRequired,
 		editPost: PropTypes.func.isRequired,
-		postMeta: PropTypes.func.isRequired,
+		postMeta: PropTypes.objectOf( PropTypes.any ).isRequired,
 	};
 
 	// Return the Higher-Order Component.
