@@ -15,6 +15,7 @@ use const WholesomeCode\WholesomePublishing\ROOT_DIR;
 
 // The Meta Key for the example toggle meta field.
 const META_KEY_EXAMPLE_TOGGLE = PLUGIN_PREFIX . '_example_toggle';
+const META_KEY_BLOCK_COMMENTS = '_' . PLUGIN_PREFIX . '_block_comments';
 
 /**
  * Setup
@@ -58,6 +59,40 @@ function register_meta_fields() : void {
 				'type'          => 'boolean',
 			]
 		);
+
+		register_post_meta(
+			$post_type,
+			META_KEY_BLOCK_COMMENTS,
+			[
+				'auth_callback' => function() {
+					return current_user_can( 'edit_posts' );
+				},
+				'show_in_rest'  => [
+					'schema' => [
+						'type'       => 'object',
+						'properties' => [
+							'authorID' => [
+								'type' => 'number',
+							],
+							'comment'  => [
+								'type' => 'string',
+							],
+							'dateTime' => [
+								'type' => 'number',
+							],
+							'parent'   => [
+								'type' => 'number',
+							],
+							'uid'      => [
+								'type' => 'number',
+							],
+						],
+					],
+				],
+				'single'        => false,
+				'type'          => 'object',
+			]
+		);
 	}
 }
 
@@ -72,6 +107,7 @@ function register_meta_fields() : void {
  */
 function block_settings( $settings ) : array {
 	$settings['metaKeyExampleToggle'] = META_KEY_EXAMPLE_TOGGLE;
+	$settings['metaKeyBlockComments'] = META_KEY_BLOCK_COMMENTS;
 
 	return $settings;
 }

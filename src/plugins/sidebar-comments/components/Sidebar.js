@@ -92,8 +92,11 @@ class SidebarComments extends Component {
 
 		// Retrieve the PHP meta key from the settings, and then access the
 		// value from the postMeta object.
-		const { metaKeyExampleToggle } = settings;
+		const { metaKeyBlockComments, metaKeyExampleToggle } = settings;
 		const exampleToggle = postMeta[ metaKeyExampleToggle ];
+		const blockComments = postMeta[ metaKeyBlockComments ];
+
+		console.log( blockComments );
 
 		return (
 			<Fragment>
@@ -124,6 +127,14 @@ class SidebarComments extends Component {
 								} );
 							} }
 						/>
+						{
+							blockComments.map( ( { uid } ) => {
+								return (
+									<h1>{uid}</h1>
+								);
+							} )
+						}
+
 					</PanelBody>
 				</PluginSidebar>
 			</Fragment>

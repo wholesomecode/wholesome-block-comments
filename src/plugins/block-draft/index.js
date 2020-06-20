@@ -63,5 +63,6 @@ addFilter(
 	compose( [
 		withIsBlockDraft,
 		withInspectorControls,
-	] )
+	] ),
+	0
 );
