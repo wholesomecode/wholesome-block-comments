@@ -5,15 +5,6 @@
  */
 
 /**
- * Third Party Imports.
- *
- * - _isEmpty
- *   Lodash is empty checks if something is truly empty.
- *   @see https://lodash.com/docs/4.17.15#isEmpty
- */
-import _isEmpty from 'lodash/isEmpty';
-
-/**
  * React Imports.
  *
  * - PropTypes

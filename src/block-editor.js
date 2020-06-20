@@ -6,6 +6,7 @@
  */
 
 // Import plugins
+import './plugins/block-comments';
 import './plugins/block-draft';
 import './plugins/block-uid';
 import './plugins/sidebar-comments';
