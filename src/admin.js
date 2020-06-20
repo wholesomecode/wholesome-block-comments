@@ -6,4 +6,4 @@
  */
 
 // Import settings
-import './settings/example-settings/index';
+// import './settings/example-settings/index';

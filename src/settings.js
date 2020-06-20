@@ -5,7 +5,7 @@
  * wp_localize_script into editor components.
  */
 
-// global WholesomeBoilerplateSettings.
-const settings = WholesomeBoilerplateSettings;
+// global WholesomePublishingSettings.
+const settings = WholesomePublishingSettings;
 
 export default settings;

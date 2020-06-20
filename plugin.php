@@ -16,7 +16,7 @@
  * @package         wholesomecode/wholesome_publishing
  */
 
-namespace WholesomeCode\WholesomeBoilerplate; // @codingStandardsIgnoreLine
+namespace WholesomeCode\WholesomePublishing; // @codingStandardsIgnoreLine
 
 /**
  * Your main plugin.php file should include the plugin header comment

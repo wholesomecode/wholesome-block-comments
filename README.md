@@ -17,7 +17,7 @@ Inspired by the **CodeinWP** article _[Making a “Plugin Options Page” With G
 </p>
 
 #### An example block editor plugin (sidebar)
-The boilerplate contains an example custom sidebar plugin named `Example Sidebar`, this contains some quick start configuration, and inline documentation.
+The boilerplate contains an example custom sidebar plugin named `Sidebar Comments`, this contains some quick start configuration, and inline documentation.
 
 <p align="center">
 	<img src="https://github.com/wholesomecode/wholesome-publishing/blob/master/assets/screenshot-3.png" alt="Custom sidebar" width="500">

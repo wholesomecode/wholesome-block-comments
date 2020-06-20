@@ -6,7 +6,6 @@
  */
 
 // Import plugins
-import './plugins/example-sidebar';
-
-// Import blocks
-import './blocks/example-block';
+import './plugins/block-draft';
+import './plugins/block-uid';
+import './plugins/sidebar-comments';

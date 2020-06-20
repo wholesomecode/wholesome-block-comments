@@ -1,17 +1,17 @@
 <?php
 /**
- * Example Sidebar.
+ * Sidebar Comments.
  *
  * Load the PHP methods that support the block editor plugin within
- * /src/plugins/example-sidebar.
+ * /src/plugins/sidebar-comments.
  *
  * @package wholesomecode/wholesome_publishing
  */
 
-namespace WholesomeCode\WholesomeBoilerplate\ExampleSidebar; // @codingStandardsIgnoreLine
+namespace WholesomeCode\WholesomePublishing\SidebarComments; // @codingStandardsIgnoreLine
 
-use const WholesomeCode\WholesomeBoilerplate\PLUGIN_PREFIX;
-use const WholesomeCode\WholesomeBoilerplate\ROOT_DIR;
+use const WholesomeCode\WholesomePublishing\PLUGIN_PREFIX;
+use const WholesomeCode\WholesomePublishing\ROOT_DIR;
 
 // The Meta Key for the example toggle meta field.
 const META_KEY_EXAMPLE_TOGGLE = PLUGIN_PREFIX . '_example_toggle';

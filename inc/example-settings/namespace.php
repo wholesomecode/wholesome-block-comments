@@ -10,11 +10,11 @@
  * @package wholesomecode/wholesome_publishing
  */
 
-namespace WholesomeCode\WholesomeBoilerplate\ExampleSettings; // @codingStandardsIgnoreLine
+namespace WholesomeCode\WholesomePublishing\ExampleSettings; // @codingStandardsIgnoreLine
 
-use const WholesomeCode\WholesomeBoilerplate\PLUGIN_PREFIX;
-use const WholesomeCode\WholesomeBoilerplate\ROOT_DIR;
-use const WholesomeCode\WholesomeBoilerplate\ROOT_FILE;
+use const WholesomeCode\WholesomePublishing\PLUGIN_PREFIX;
+use const WholesomeCode\WholesomePublishing\ROOT_DIR;
+use const WholesomeCode\WholesomePublishing\ROOT_FILE;
 
 // Settings URL slug.
 const SETTING_SLUG = 'wholesome_publishing';

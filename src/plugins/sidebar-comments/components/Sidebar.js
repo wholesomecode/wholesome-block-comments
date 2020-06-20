@@ -5,7 +5,7 @@
  * HOC. These are contained within their own components folder ../containers.
  *
  * Note that post metadata is used within this component. This is registered via
- * PHP within /inc/example-sidebar.
+ * PHP within /inc/sidebar-comments.
  */
 
 /**
@@ -70,19 +70,19 @@ import { __ } from '@wordpress/i18n';
 import settings from '../../../settings';
 
 // The prefix for our CSS classes.
-const baseClassName = 'example-sidebar';
+const baseClassName = 'sidebar-comments';
 
 // The name and title of the plugin, so that it can be registered and if
 // needed accessed within a filter.
-export const sidebarName = 'example-sidebar'; // Could just set to baseClassName, but keeping full for example.
-export const sidebarTitle = __( 'Example Sidebar', 'wholesome-publishing' );
+export const sidebarName = 'sidebar-comments'; // Could just set to baseClassName, but keeping full for example.
+export const sidebarTitle = __( 'Sidebar Comments', 'wholesome-publishing' );
 
 /**
- * Example Sidebar.
+ * Sidebar Comments.
  *
  * Basic sidebar that updates a post meta value.
  */
-class ExampleSidebar extends Component {
+class SidebarComments extends Component {
 	render() {
 		// Props populated via Higher-Order Component.
 		const {
@@ -106,7 +106,7 @@ class ExampleSidebar extends Component {
 				>
 					<PanelBody
 						className={ `${ baseClassName }__example_panel` }
-						title={ __( 'Example Sidebar', 'wholesome-publishing' ) }
+						title={ __( 'Sidebar Comments', 'wholesome-publishing' ) }
 					>
 						<ToggleControl
 							checked={ exampleToggle }
@@ -132,10 +132,10 @@ class ExampleSidebar extends Component {
 }
 
 // Export the Sidebar.
-export default ExampleSidebar;
+export default SidebarComments;
 
 // Typechecking the Component props.
-ExampleSidebar.propTypes = {
+SidebarComments.propTypes = {
 	editPost: PropTypes.func.isRequired,
 	postMeta: PropTypes.objectOf( PropTypes.any ).isRequired,
 };

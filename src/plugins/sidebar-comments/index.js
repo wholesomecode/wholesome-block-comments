@@ -1,5 +1,5 @@
 /**
- * Example Sidebar.
+ * Sidebar Comments.
  *
  * Custom sidebar that contains example post meta controls.
  */
@@ -37,7 +37,7 @@ import { sidebarName as name } from './components/Sidebar';
  * An SVG can be used here instead.
  */
 const settings = {
-	icon: 'heart',
+	icon: 'admin-comments',
 	render,
 };
 

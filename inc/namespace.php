@@ -5,7 +5,7 @@
  * @package wholesomecode/wholesome_publishing
  */
 
-namespace WholesomeCode\WholesomeBoilerplate; // @codingStandardsIgnoreLine
+namespace WholesomeCode\WholesomePublishing; // @codingStandardsIgnoreLine
 
 /**
  * Setup
@@ -39,20 +39,28 @@ function setup() : void {
 	 */
 
 	/**
+	 * Block Draft.
+	 *
+	 * Control rendering of draft blocks.
+	 */
+	require_once ROOT_DIR . '/inc/block-draft/namespace.php';
+	BlockDraft\setup();
+
+	/**
 	 * Example Settings.
 	 *
 	 * Settings for the Plugin.
 	 */
-	require_once ROOT_DIR . '/inc/example-settings/namespace.php';
-	ExampleSettings\setup();
+	// require_once ROOT_DIR . '/inc/example-settings/namespace.php';
+	// ExampleSettings\setup();
 
 	/**
-	 * Example Sidebar.
+	 * Sidebar Comments.
 	 *
 	 * Sidebar for Posts.
 	 */
-	require_once ROOT_DIR . '/inc/example-sidebar/namespace.php';
-	ExampleSidebar\setup();
+	require_once ROOT_DIR . '/inc/sidebar-Comments/namespace.php';
+	SidebarComments\setup();
 }
 
 /**
@@ -148,7 +156,7 @@ function enqueue_block_editor_assets() : void {
 
 	wp_localize_script(
 		PLUGIN_SLUG . '-block-editor',
-		'WholesomeBoilerplateSettings',
+		'WholesomePublishingSettings',
 		$block_settings
 	);
 }
@@ -231,7 +239,7 @@ function enqueue_admin_assets() : void {
 
 	wp_localize_script(
 		PLUGIN_SLUG . '-admin',
-		'WholesomeBoilerplateSettings',
+		'WholesomePublishingSettings',
 		$block_settings
 	);
 }
