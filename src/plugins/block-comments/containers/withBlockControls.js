@@ -70,13 +70,16 @@ export default createHigherOrderComponent( ( BlockEdit ) => {
 								editPost( {
 									...postMeta,
 									meta: {
-										[ metaKeyBlockComments ]: [ {
-											// authorID: 0,
-											comment: '',
-											dateTime: parseInt( new Date().valueOf(), 10 ),
-											// parent: 0,
-											uid: parseInt( uid, 10 ),
-										} ],
+										[ metaKeyBlockComments ]: [
+											...blockComments,
+											{
+												// authorID: 0,
+												comment: '',
+												dateTime: parseInt( new Date().valueOf(), 10 ),
+												// parent: 0,
+												uid: parseInt( uid, 10 ),
+											},
+										],
 									},
 								} );
 							} }
