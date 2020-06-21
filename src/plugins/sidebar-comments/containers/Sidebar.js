@@ -13,9 +13,9 @@ import withPostMeta from '../../../components/higher-order/withPostMeta';
 
 const mapBlockOrderToProps = ( select ) => {
 	const blocks = select( 'core/editor' ).getBlocks();
-	const blockOrder = blocks.map( ( { attributes } ) => attributes.uid );
+	const blockOrder = blocks.map( ( { attributes } ) => parseInt( attributes.uid, 10 ) );
 	return {
-		blocksOrder: blockOrder,
+		blockOrder,
 	};
 };
 

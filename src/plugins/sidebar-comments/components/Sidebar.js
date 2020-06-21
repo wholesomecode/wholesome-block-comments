@@ -9,6 +9,15 @@
  */
 
 /**
+ * Third Party Imports.
+ *
+ * - _isEmpty
+ *   Lodash is empty checks if something is truly empty.
+ *   @see https://lodash.com/docs/4.17.15#isEmpty
+ */
+import _isEmpty from 'lodash/isEmpty';
+
+/**
  * React Imports.
  *
  * - PropTypes
@@ -96,6 +105,18 @@ class SidebarComments extends Component {
 		const { metaKeyBlockComments, metaKeyExampleToggle } = settings;
 		const exampleToggle = postMeta[ metaKeyExampleToggle ];
 		const blockComments = postMeta[ metaKeyBlockComments ];
+
+		if ( ! _isEmpty( blockOrder ) ) {
+			blockComments.sort( ( a, b ) => {
+				const A = a.uid;
+				const B = b.uid;
+
+				if ( blockOrder.indexOf( A ) > blockOrder.indexOf( B ) ) {
+					return 1;
+				}
+				return -1;
+			} );
+		}
 
 		return (
 			<Fragment>
