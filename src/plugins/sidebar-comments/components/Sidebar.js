@@ -155,6 +155,9 @@ class SidebarComments extends Component {
 								parent,
 								uid,
 							} ) => {
+								const date = new Date( dateTime );
+								const dateFormatted = `${ date.getFullYear() }-${ date.getMonth() + 1 }-${ date.getDate() } ${ date.getHours() }:${ date.getMinutes() }:${ date.getSeconds() }`;
+								console.log( dateFormatted );
 								return (
 									<Comment
 										authorID={ authorID }

@@ -12,7 +12,7 @@ import Sidebar from '../components/Sidebar';
 import withPostMeta from '../../../components/higher-order/withPostMeta';
 
 const mapBlockOrderToProps = ( select ) => {
-	const blocks = select( 'core/editor' ).getBlocks();
+	const blocks = select( 'core/block-editor' ).getBlocks();
 	const blockOrder = blocks.map( ( { attributes } ) => parseInt( attributes.uid, 10 ) );
 	return {
 		blockOrder,
