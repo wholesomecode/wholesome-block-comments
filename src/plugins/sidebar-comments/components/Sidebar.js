@@ -96,6 +96,7 @@ class SidebarComments extends Component {
 		// Props populated via Higher-Order Component.
 		const {
 			editPost,
+			blocks,
 			blockOrder,
 			postMeta,
 		} = this.props;
@@ -155,12 +156,21 @@ class SidebarComments extends Component {
 								parent,
 								uid,
 							} ) => {
-								const date = new Date( dateTime );
-								const dateFormatted = `${ date.getFullYear() }-${ date.getMonth() + 1 }-${ date.getDate() } ${ date.getHours() }:${ date.getMinutes() }:${ date.getSeconds() }`;
-								console.log( dateFormatted );
+								// TODO: DateTime in Comment component.
+								// const date = new Date( dateTime );
+								// const dateFormatted = `${ date.getFullYear() }-${ date.getMonth() + 1 }-${ date.getDate() } ${ date.getHours() }:${ date.getMinutes() }:${ date.getSeconds() }`;
+								// console.log( dateFormatted );
+								const block = blocks.filter( ( { attributes } ) => parseInt( attributes.uid, 10 ) === parseInt( uid, 10 ) );
+								let blockID = '';
+
+								if ( ! _isEmpty( block ) ) {
+									blockID = block[ 0 ].clientId;
+								}
+
 								return (
 									<Comment
 										authorID={ authorID }
+										blockID={ blockID }
 										comment={ comment }
 										dateTime={ dateTime }
 										key={ dateTime }

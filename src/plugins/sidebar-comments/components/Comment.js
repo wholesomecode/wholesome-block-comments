@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { Button } from '@wordpress/components';
-import { select } from '@wordpress/data';
+import { dispatch, select } from '@wordpress/data';
 import { Component } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
@@ -20,6 +20,7 @@ class Comment extends Component {
 	handleBlur( e ) {
 		e.preventDefault();
 		const { currentTarget } = e;
+
 		setTimeout( () => {
 			if ( currentTarget.contains( document.activeElement ) ) {
 				return;
@@ -31,10 +32,25 @@ class Comment extends Component {
 		}, 200 );
 	}
 
-	handleFocus() {
-		this.setState( () => ( {
-			isSelected: true,
-		} ) );
+	handleFocus( e ) {
+		e.preventDefault();
+		const { currentTarget } = e;
+		const { blockID } = this.props;
+		const element = document.getElementById( `block-${ blockID }` );
+		const { isSelected } = this.state;
+		if ( ! isSelected ) {
+			if ( element ) {
+				dispatch( 'core/block-editor' ).selectBlock( blockID );
+				setTimeout( () => {
+					element.scrollIntoView( { behavior: 'smooth', block: 'end', inline: 'nearest' } );
+					currentTarget.focus();
+				}, 200 );
+			}
+
+			this.setState( () => ( {
+				isSelected: true,
+			} ) );
+		}
 	}
 
 	render() {
@@ -48,6 +64,8 @@ class Comment extends Component {
 			postMeta,
 			uid,
 		} = this.props;
+
+		// console.log( blockID );
 
 		const { isSelected } = this.state;
 
