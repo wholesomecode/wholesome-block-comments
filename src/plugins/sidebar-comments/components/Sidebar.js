@@ -53,6 +53,7 @@ import PropTypes from 'prop-types';
  *   @see https://developer.wordpress.org/block-editor/developers/internationalization/
  */
 import { PanelBody, ToggleControl } from '@wordpress/components';
+import { select } from '@wordpress/data';
 import { PluginSidebar, PluginSidebarMoreMenuItem } from '@wordpress/edit-post';
 import { Component, Fragment } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
@@ -86,6 +87,7 @@ class SidebarComments extends Component {
 		// Props populated via Higher-Order Component.
 		const {
 			editPost,
+			blockOrder,
 			postMeta,
 		} = this.props;
 

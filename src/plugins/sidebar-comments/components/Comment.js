@@ -70,10 +70,13 @@ class Comment extends Component {
 				</header>
 				<span className="comment__datatime">{dateTime}</span>
 				<div className="comment__text">
-					{ comment }
-					<textarea
-						value={ comment }
-					/>
+					{isSelected ? (
+						<textarea
+							value={ comment }
+						/>
+					) : (
+						<span>{ comment }</span>
+					)}
 				</div>
 				<footer className="comment__controls">
 					<Button

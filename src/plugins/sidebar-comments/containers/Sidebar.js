@@ -6,8 +6,20 @@
  */
 
 // Import the component that we are going to wrap.
+import { compose } from '@wordpress/compose';
+import { withSelect } from '@wordpress/data';
 import Sidebar from '../components/Sidebar';
 import withPostMeta from '../../../components/higher-order/withPostMeta';
 
-// Compose the HOC, and apply it to the Sidebar Component, and Export it.
-export default withPostMeta( Sidebar );
+const mapBlockOrderToProps = ( select ) => {
+	const blocks = select( 'core/editor' ).getBlocks();
+	const blockOrder = blocks.map( ( { attributes } ) => attributes.uid );
+	return {
+		blocksOrder: blockOrder,
+	};
+};
+
+export default compose(
+	withSelect( mapBlockOrderToProps ),
+	withPostMeta,
+)( Sidebar );
