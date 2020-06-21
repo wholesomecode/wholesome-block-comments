@@ -41,9 +41,9 @@ class Comment extends Component {
 		if ( ! isSelected ) {
 			if ( element ) {
 				dispatch( 'core/block-editor' ).selectBlock( blockID );
+				currentTarget.focus();
 				setTimeout( () => {
-					element.scrollIntoView( { behavior: 'smooth', block: 'end', inline: 'nearest' } );
-					currentTarget.focus();
+					element.scrollIntoView( { behavior: 'smooth', block: 'center', inline: 'nearest' } );
 				}, 200 );
 			}
 
