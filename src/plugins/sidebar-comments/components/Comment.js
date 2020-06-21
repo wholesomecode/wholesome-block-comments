@@ -43,6 +43,7 @@ class Comment extends Component {
 				dispatch( 'core/block-editor' ).selectBlock( blockID );
 				currentTarget.focus();
 				setTimeout( () => {
+					currentTarget.focus();
 					element.scrollIntoView( { behavior: 'smooth', block: 'center', inline: 'nearest' } );
 				}, 200 );
 			}
