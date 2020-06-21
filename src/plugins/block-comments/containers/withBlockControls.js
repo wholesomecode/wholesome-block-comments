@@ -93,6 +93,8 @@ export default createHigherOrderComponent( ( BlockEdit ) => {
 								setTimeout( () => {
 									document.querySelector( `[data-block-comment='${ uid }']` )
 										.scrollIntoView( { behavior: 'smooth', block: 'end', inline: 'nearest' } );
+									document.querySelector( `[data-block-comment='${ uid }']` )
+										.focus();
 								},
 								200 );
 							} }

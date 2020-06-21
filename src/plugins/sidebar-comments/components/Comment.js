@@ -9,6 +9,34 @@ import settings from '../../../settings';
 import { sidebarName } from './Sidebar';
 
 class Comment extends Component {
+	constructor( props ) {
+		super( props );
+		this.state = { isSelected: false };
+
+		this.handleBlur = this.handleBlur.bind( this );
+		this.handleFocus = this.handleFocus.bind( this );
+	}
+
+	handleBlur( e ) {
+		e.preventDefault();
+		const { currentTarget } = e;
+		setTimeout( () => {
+			if ( currentTarget.contains( document.activeElement ) ) {
+				return;
+			}
+
+			this.setState( () => ( {
+				isSelected: false,
+			} ) );
+		}, 200 );
+	}
+
+	handleFocus() {
+		this.setState( () => ( {
+			isSelected: true,
+		} ) );
+	}
+
 	render() {
 		// Props populated via Higher-Order Component.
 		const {
@@ -21,17 +49,33 @@ class Comment extends Component {
 			uid,
 		} = this.props;
 
+		const { isSelected } = this.state;
+
 		const currentUserId = select( 'core' ).getCurrentUser().id;
 		const { metaKeyBlockComments } = settings;
 		const blockComments = postMeta[ metaKeyBlockComments ];
+		const selectedClass = isSelected ? 'comment__selected' : '';
 
 		return (
-			<div className={ `${ sidebarName }__comment comment` } data-block-comment={ uid }>
-				<img alt="" className="comment__avatar" src="" />
-				<h2 className="comment__username">{uid}</h2>
+			<article
+				className={ `${ sidebarName }__comment comment ${ selectedClass }` }
+				data-block-comment={ uid }
+				onBlur={ this.handleBlur }
+				onFocus={ this.handleFocus }
+				tabIndex="-1"
+			>
+				<header>
+					<img alt="" className="comment__avatar" src="" />
+					<h2 className="comment__username">{uid}</h2>
+				</header>
 				<span className="comment__datatime">{dateTime}</span>
-				<div className="comment__text">{ comment }</div>
-				<div className="comment__controls">
+				<div className="comment__text">
+					{ comment }
+					<textarea
+						value={ comment }
+					/>
+				</div>
+				<footer className="comment__controls">
 					<Button
 						icon="trash"
 						label={ __( 'Delete Comment', 'wholesome-publishing' ) }
@@ -46,8 +90,8 @@ class Comment extends Component {
 							} );
 						} }
 					/>
-				</div>
-			</div>
+				</footer>
+			</article>
 		);
 	}
 }
