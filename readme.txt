@@ -28,7 +28,7 @@ To install Wholesome Publishing:
 
 == Screenshots ==
 
-1. WordPress Editor (Gutenberg) block comments.
+1. WordPress Editor (Gutenberg) block comments
 2. Draft blocks
 3. Block comments (gif)
 4. Draft blocks (gif)
