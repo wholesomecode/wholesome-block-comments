@@ -1,3 +1,12 @@
+/**
+ * Third Party Imports.
+ *
+ * - _isEmpty
+ *   Lodash is empty checks if something is truly empty.
+ *   @see https://lodash.com/docs/4.17.15#isEmpty
+ */
+import _isEmpty from 'lodash/isEmpty';
+
 import TextareaAutosize from 'react-autosize-textarea';
 
 import PropTypes from 'prop-types';
@@ -110,12 +119,17 @@ class Comment extends Component {
 							className="comment__comment"
 							value={ comment }
 							onBlur={ () => {
-								// TODO: Need to change the array without adding an empty object!
-								// Perhaps splice and re add it?
+								// TODO: This is a hack.
+								const noEmptyComments = blockComments.filter( ( item ) => ! _isEmpty( item ) );
+								let newComments = [ {} ].concat( blockComments );
+								if ( noEmptyComments.length < blockComments.length ) {
+									newComments = noEmptyComments;
+								}
+
 								editPost( {
 									...postMeta,
 									meta: {
-										[ metaKeyBlockComments ]: [ {} ].concat( blockComments ),
+										[ metaKeyBlockComments ]: newComments,
 									},
 								} );
 							} }

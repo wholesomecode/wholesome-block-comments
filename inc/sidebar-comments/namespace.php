@@ -35,7 +35,6 @@ function setup() : void {
  * @return void
  */
 function register_meta_fields() : void {
-	// delete_post_meta( 1, META_KEY_BLOCK_COMMENTS );
 	// Get all public post types.
 	$post_types = get_post_types(
 		[
