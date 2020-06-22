@@ -4,8 +4,8 @@
  *
  * Plugin Name:     Wholesome Publishing
  * Plugin URI:      https://github.com/wholesomecode/wholesome-publishing
- * Description:     Wholesome Publishing allows you to create better content with support for draft blocks and block comments.
- * Version:         0.1.0
+ * Description:     Wholesome Publishing: Editor comments for WordPress Gutenberg blocks and Draft block support.
+ * Version:         1.0.0
  * Author:          Wholesome Code <hello@wholesomecode.ltd>
  * Author URI:      https://wholesomecode.ltd
  * License:         GPL-2.0-or-later
@@ -13,7 +13,7 @@
  * Text Domain:     wholesome-publishing
  * Domain Path:     /languages
  *
- * @package         wholesomecode/wholesome_publishing
+ * @package         wholesome_code/wholesome_publishing
  */
 
 namespace WholesomeCode\WholesomePublishing; // @codingStandardsIgnoreLine
@@ -26,8 +26,8 @@ namespace WholesomeCode\WholesomePublishing; // @codingStandardsIgnoreLine
  *
  * @see https://engineering.hmn.md/standards/structure/
  */
-const PLUGIN_PREFIX = 'wholesomecode_wholesome_publishing';
-const PLUGIN_SLUG   = 'wholesomecode-wholesome-publishing';
+const PLUGIN_PREFIX = 'wholesome_publishing';
+const PLUGIN_SLUG   = 'wholesome-publishing';
 const ROOT_DIR      = __DIR__;
 const ROOT_FILE     = __FILE__;
 

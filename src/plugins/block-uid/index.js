@@ -28,7 +28,6 @@ import { addFilter } from '@wordpress/hooks';
  */
 import attributes from './settings/attributes';
 import withTimeStamp from './containers/withTimeStamp';
-// import uid from './extra-props/uid';
 
 /**
  * Attributes.

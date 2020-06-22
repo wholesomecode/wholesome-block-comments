@@ -1,15 +1,11 @@
 /**
  * Block Comments.
  *
- * A plugin to create a toolbar to implement comments on a block.
+ * A plugin to create a toolbar to apply or focus on a block comment.
  */
 
 /**
  * WordPress Imports.
- *
- * - addFilter
- *   WordPress block editor (Gutenberg) filter hook.
- *   @see https://developer.wordpress.org/block-editor/developers/filters/block-filters/
  */
 import { compose } from '@wordpress/compose';
 import { addFilter } from '@wordpress/hooks';

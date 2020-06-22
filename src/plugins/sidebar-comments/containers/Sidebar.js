@@ -5,15 +5,22 @@
  * Higher-Order Component(s) HOC.
  */
 
-// Import the component that we are going to wrap.
+/**
+ * WordPress Imports.
+ */
 import { compose } from '@wordpress/compose';
 import { withSelect } from '@wordpress/data';
-import Sidebar from '../components/Sidebar';
+
+/**
+ * Plugin Imports.
+ */
 import withPostMeta from '../../../components/higher-order/withPostMeta';
+// Import the component that we are going to wrap.
+import Sidebar from '../components/Sidebar';
 
 const mapBlockDetailToProps = ( select ) => {
 	const blocks = select( 'core/block-editor' ).getBlocks();
-	const blockOrder = blocks.map( ( { attributes } ) => parseInt( attributes.uid, 10 ) );
+	const blockOrder = blocks.map( ( { attributes } ) => attributes.uid );
 	const users = select( 'core' ).getUsers();
 	return {
 		blocks,
