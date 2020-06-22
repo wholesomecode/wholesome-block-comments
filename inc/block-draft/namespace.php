@@ -3,7 +3,8 @@
  * Block Draft.
  *
  * Load the PHP methods that support the block editor plugin within
- * /src/plugins/block-drafts.
+ * /src/plugins/block-draft.
+ *
  * @package wholesome_code/wholesome_publishing
  */
 
@@ -12,18 +13,19 @@ namespace WholesomeCode\WholesomePublishing\BlockDraft; // @codingStandardsIgnor
 /**
  * Setup
  *
- * - Remove blocks if set to drafts.
+ * - Remove block if set as draft.
  *
  * @return void
  */
 function setup() : void {
+	// Remove block if set as draft.
 	add_filter( 'pre_render_block', __NAMESPACE__ . '\\remove_blocks_in_draft', 0, 2 );
 }
 
 /**
  * Remove Blocks in Draft.
  *
- * Remove blocks that are set to draft.
+ * Remove blocks that are set as draft.
  *
  * @param mixed $pre_render If the block should render.
  * @param object $block The block.
@@ -36,7 +38,7 @@ function remove_blocks_in_draft( $pre_render, $block ) {
 		return $pre_render;
 	}
 
-	// If the block requires a login, do not render.
+	// If the block is draft, do not render.
 	if (
 		isset( $block['attrs'] ) &&
 		isset( $block['attrs']['isBlockDraft'] ) &&

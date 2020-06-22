@@ -69,7 +69,7 @@
  * from wp-scripts.
  */
 const defaultConfig = require( '@wordpress/scripts/config/webpack.config' );
-const IgnoreEmitWebPackPlugin = require( 'ignore-emit-webpack-plugin' );
+// const IgnoreEmitWebPackPlugin = require( 'ignore-emit-webpack-plugin' );
 const FriendlyErrorsWebpackPlugin = require( 'friendly-errors-webpack-plugin' );
 const MiniCssExtractPlugin = require( 'mini-css-extract-plugin' );
 const OptimizeCssAssetsWebpackPlugin = require( 'optimize-css-assets-webpack-plugin' );
@@ -100,10 +100,6 @@ module.exports = {
 	 *
 	 * Multiple entry points for WordPress style and script types.
 	 *
-	 * Admin
-	 * - admin.js: scripts for WordPress Admin area.
-	 * - admin.scss: styles for the WordPress Admin area.
-	 *
 	 * Block Styles
 	 * - block-styles.scss: styles for the front end and the block
 	 *   editor.
@@ -112,37 +108,12 @@ module.exports = {
 	 * - block-editor.js: scripts for the block editor.
 	 * - block-editor.scss: styles for the block editor only.
 	 *
-	 * Classic Editor
-	 * - classic-editor.scss: styles for the classic editor TinyMCE
-	 *   textarea.
-	 *
-	 * Customizer
-	 * - customizer.js: scripts for the Customizer screen.
-	 * - customizer.scss: styles for the Customizer screen.
-	 *
-	 * Scripts
-	 * - scripts.js: scripts for the front end of the site.
-	 *
-	 * Styles
-	 * - styles.scss: styles for the front end of the site.
 	 */
 	entry: {
-		'admin': [
-			path.resolve( process.cwd(), 'src', 'admin.js' ),
-			path.resolve( process.cwd(), 'src', 'admin.scss' ),
-		],
-		'block-styles': path.resolve( process.cwd(), 'src', 'block-styles.scss' ),
 		'block-editor': [
 			path.resolve( process.cwd(), 'src', 'block-editor.js' ),
 			path.resolve( process.cwd(), 'src', 'block-editor.scss' ),
 		],
-		'classic-editor': path.resolve( process.cwd(), 'src', 'classic-editor.scss' ),
-		'customizer': [
-			path.resolve( process.cwd(), 'src', 'customizer.js' ),
-			path.resolve( process.cwd(), 'src', 'customizer.scss' ),
-		],
-		'scripts': path.resolve( process.cwd(), 'src', 'scripts.js' ),
-		'styles': path.resolve( process.cwd(), 'src', 'styles.scss' ),
 	},
 	module: {
 		...defaultConfig.module,
@@ -214,14 +185,6 @@ module.exports = {
 	 */
 	plugins: [
 		...defaultConfig.plugins,
-		new IgnoreEmitWebPackPlugin( [
-			// 'admin.asset.php',
-			'block-styles.asset.php',
-			'classic-editor.asset.php',
-			'customizer.asset.php',
-			'scripts.asset.php',
-			'styles.asset.php',
-		] ),
 		new FriendlyErrorsWebpackPlugin(),
 		new StylelintWebpackPlugin( {
 			files: 'src/**/*.s?(a|c)ss',

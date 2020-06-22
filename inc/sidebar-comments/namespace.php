@@ -13,12 +13,20 @@ namespace WholesomeCode\WholesomePublishing\SidebarComments; // @codingStandards
 use const WholesomeCode\WholesomePublishing\PLUGIN_PREFIX;
 use const WholesomeCode\WholesomePublishing\ROOT_DIR;
 
-// The Meta Key for the example toggle meta field.
+/**
+ * Meta Keys:
+ *
+ * - Post meta comments.
+ * - Post meta comments last updated.
+ */
 const META_KEY_BLOCK_COMMENTS              = '_' . PLUGIN_PREFIX . '_block_comments';
 const META_KEY_BLOCK_COMMENTS_LAST_UPDATED = '_' . PLUGIN_PREFIX . '_block_comments_last_updated';
 
 /**
- * Setup
+ * Setup.
+ *
+ * - Register meta fields.
+ * - Add meta keys to settings.
  *
  * @return void
  */
@@ -36,6 +44,7 @@ function setup() : void {
  * @return void
  */
 function register_meta_fields() : void {
+
 	// Get all public post types.
 	$post_types = get_post_types(
 		[
@@ -47,6 +56,7 @@ function register_meta_fields() : void {
 	// Register meta for all public post types.
 	foreach ( $post_types as $post_type ) {
 
+		// Register block comment post meta array of objects.
 		register_post_meta(
 			$post_type,
 			META_KEY_BLOCK_COMMENTS,
@@ -81,6 +91,7 @@ function register_meta_fields() : void {
 			]
 		);
 
+		// Register block comment post meta last modified date time.
 		register_post_meta(
 			$post_type,
 			META_KEY_BLOCK_COMMENTS_LAST_UPDATED,
