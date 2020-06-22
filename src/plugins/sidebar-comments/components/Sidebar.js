@@ -99,6 +99,7 @@ class SidebarComments extends Component {
 			blocks,
 			blockOrder,
 			postMeta,
+			users,
 		} = this.props;
 
 		// Retrieve the PHP meta key from the settings, and then access the
@@ -107,17 +108,17 @@ class SidebarComments extends Component {
 		const exampleToggle = postMeta[ metaKeyExampleToggle ];
 		const blockComments = postMeta[ metaKeyBlockComments ];
 
-		if ( ! _isEmpty( blockOrder ) ) {
-			blockComments.sort( ( a, b ) => {
-				const A = a.uid;
-				const B = b.uid;
+		// if ( ! _isEmpty( blockOrder ) ) {
+		// 	blockComments.sort( ( a, b ) => {
+		// 		const A = a.uid;
+		// 		const B = b.uid;
 
-				if ( blockOrder.indexOf( A ) > blockOrder.indexOf( B ) ) {
-					return 1;
-				}
-				return -1;
-			} );
-		}
+		// 		if ( blockOrder.indexOf( A ) > blockOrder.indexOf( B ) ) {
+		// 			return 1;
+		// 		}
+		// 		return -1;
+		// 	} );
+		// }
 
 		return (
 			<Fragment>
@@ -148,39 +149,114 @@ class SidebarComments extends Component {
 								} );
 							} }
 						/>
-						{
-							blockComments.map( ( {
-								authorID,
-								comment,
-								dateTime,
-								parent,
-								uid,
-							} ) => {
-								// TODO: DateTime in Comment component.
-								// const date = new Date( dateTime );
-								// const dateFormatted = `${ date.getFullYear() }-${ date.getMonth() + 1 }-${ date.getDate() } ${ date.getHours() }:${ date.getMinutes() }:${ date.getSeconds() }`;
-								// console.log( dateFormatted );
-								const block = blocks.filter( ( { attributes } ) => parseInt( attributes.uid, 10 ) === parseInt( uid, 10 ) );
-								let blockID = '';
+						<ul>
+							{ blockOrder.map( ( uid ) => {
+								const currentComments = blockComments.filter( ( block ) => block.parent === 0 && block.uid === uid );
 
-								if ( ! _isEmpty( block ) ) {
-									blockID = block[ 0 ].clientId;
-								}
+								return currentComments.map( ( {
+									authorID,
+									comment,
+									dateTime,
+									parent,
+									uid,
+								} ) => {
+									const childComments = blockComments.filter( ( block ) => block.parent === dateTime && block.uid === uid );
+									const block = blocks.filter( ( { attributes } ) => parseInt( attributes.uid, 10 ) === parseInt( uid, 10 ) );
+									let blockID = '';
 
-								return (
-									<Comment
-										authorID={ authorID }
-										blockID={ blockID }
-										comment={ comment }
-										dateTime={ dateTime }
-										key={ dateTime }
-										parent={ parent }
-										uid={ uid }
-									/>
-								);
-							} )
-						}
+									if ( ! _isEmpty( block ) ) {
+										blockID = block[ 0 ].clientId;
+									}
 
+									if ( _isEmpty( users ) ) {
+										return null;
+									}
+
+									const user = users.filter( ( item ) => item.id === authorID );
+
+									if ( ! user ) {
+										return null;
+									}
+
+									let userName = `${ user[ 0 ].first_name } ${ user[ 0 ].last_name }`;
+
+									if ( _isEmpty( userName ) ) {
+										userName = user[ 0 ].nickname;
+									}
+
+									if ( _isEmpty( userName ) ) {
+										userName = user[ 0 ].username;
+									}
+
+									const avatarUrl = user[ 0 ].avatar_urls[ 96 ];
+
+									return (
+										<li className="comment__wrapper">
+											<Comment
+												authorID={ authorID }
+												avatarUrl={ avatarUrl }
+												blockID={ blockID }
+												comment={ comment }
+												dateTime={ dateTime }
+												key={ dateTime }
+												parent={ parent }
+												uid={ uid }
+												userName={ userName }
+											>
+												{ childComments && (
+													<ul>
+														{ childComments.map( ( {
+															authorID,
+															comment,
+															dateTime,
+															parent,
+															uid,
+														} ) => {
+															if ( _isEmpty( users ) ) {
+																return null;
+															}
+
+															const user = users.filter( ( item ) => item.id === authorID );
+
+															if ( ! user ) {
+																return null;
+															}
+
+															let userName = `${ user[ 0 ].first_name } ${ user[ 0 ].last_name }`;
+
+															if ( _isEmpty( userName ) ) {
+																userName = user[ 0 ].nickname;
+															}
+
+															if ( _isEmpty( userName ) ) {
+																userName = user[ 0 ].username;
+															}
+
+															const avatarUrl = user[ 0 ].avatar_urls[ 96 ];
+															return (
+																<li>
+																	<Comment
+																		authorID={ authorID }
+																		avatarUrl={ avatarUrl }
+																		blockID={ blockID }
+																		comment={ comment }
+																		dateTime={ dateTime }
+																		key={ dateTime }
+																		parent={ parent }
+																		uid={ uid }
+																		userName={ userName }
+																	/>
+																</li>
+															);
+														} )}
+													</ul>
+												)}
+											</Comment>
+										</li>
+									);
+								} );
+							} ) }
+						</ul>
 					</PanelBody>
 				</PluginSidebar>
 			</Fragment>

@@ -1,3 +1,5 @@
+import TextareaAutosize from 'react-autosize-textarea';
+
 import PropTypes from 'prop-types';
 import { Button } from '@wordpress/components';
 import { dispatch, select } from '@wordpress/data';
@@ -58,61 +60,115 @@ class Comment extends Component {
 		// Props populated via Higher-Order Component.
 		const {
 			authorID,
+			avatarUrl,
+			children,
 			comment,
 			dateTime,
 			editPost,
 			parent,
 			postMeta,
 			uid,
+			userName,
 		} = this.props;
 
-		// console.log( blockID );
-
 		const { isSelected } = this.state;
+		const isParent = parent === 0;
 
 		const currentUserId = select( 'core' ).getCurrentUser().id;
 		const { metaKeyBlockComments } = settings;
 		const blockComments = postMeta[ metaKeyBlockComments ];
 		const selectedClass = isSelected ? 'comment__selected' : '';
+		const childClass = ! isParent ? 'comment--child' : '';
 
+		const date = new Date( dateTime );
+		const dateFormatted = `${ date.toISOString().slice( 0, 10 ) } ${ ( `0${ date.getHours() }` ).slice( -2 ) }:${ ( `0${ date.getMinutes() }` ).slice( -2 ) }:${ ( `0${ date.getSeconds() }` ).slice( -2 ) }`;
 		return (
 			<article
-				className={ `${ sidebarName }__comment comment ${ selectedClass }` }
+				className={ `${ sidebarName }__comment comment ${ selectedClass } ${ childClass }` }
 				data-block-comment={ uid }
 				onBlur={ this.handleBlur }
 				onFocus={ this.handleFocus }
 				tabIndex="-1"
 			>
-				<header>
-					<img alt="" className="comment__avatar" src="" />
-					<h2 className="comment__username">{uid}</h2>
+				<header className="comment__header">
+					<img alt={ __( 'Avatar', 'wholesome-publishing' ) } className="comment__avatar" src={ avatarUrl } />
+					<div className="comment__meta">
+						<h2 className="comment__username">{ userName }</h2>
+						<small className="comment__datatime">{ dateFormatted }</small>
+					</div>
 				</header>
-				<span className="comment__datatime">{dateTime}</span>
-				<div className="comment__text">
-					{isSelected ? (
-						<textarea
+				<div className="comment__body">
+					{ isSelected && authorID === currentUserId ? (
+						<TextareaAutosize
+							className="comment__comment"
 							value={ comment }
+							onChange={ ( e ) => {
+								const updatedComments = blockComments.filter( ( item ) => item.dateTime !== dateTime );
+								const editedComment = blockComments.filter( ( item ) => item.dateTime === dateTime );
+
+								if ( ! editedComment ) {
+									return;
+								}
+
+								editedComment[ 0 ].comment = e.target.value;
+
+								editPost( {
+									...postMeta,
+									meta: {
+										[ metaKeyBlockComments ]: [
+											...updatedComments,
+											...editedComment,
+										],
+									},
+								} );
+							} }
 						/>
 					) : (
-						<span>{ comment }</span>
+						<span className="comment__comment">{ comment }</span>
 					)}
 				</div>
-				<footer className="comment__controls">
-					<Button
-						icon="trash"
-						label={ __( 'Delete Comment', 'wholesome-publishing' ) }
-						onClick={ () => {
-							const updatedComments = blockComments.filter( ( item ) => item.dateTime !== dateTime );
+				{ children }
+				{ isSelected && (
+					<footer className="comment__controls">
+						<Button
+							icon="trash"
+							label={ __( 'Delete Comment', 'wholesome-publishing' ) }
+							onClick={ () => {
+								const updatedComments = blockComments.filter( ( item ) => item.dateTime !== dateTime );
 
-							editPost( {
-								...postMeta,
-								meta: {
-									[ metaKeyBlockComments ]: updatedComments,
-								},
-							} );
-						} }
-					/>
-				</footer>
+								editPost( {
+									...postMeta,
+									meta: {
+										[ metaKeyBlockComments ]: updatedComments,
+									},
+								} );
+							} }
+						/>
+						{ isParent && (
+							<Button
+								icon="image-rotate"
+								label={ __( 'Reply', 'wholesome-publishing' ) }
+								onClick={ () => {
+									editPost( {
+										...postMeta,
+										meta: {
+											[ metaKeyBlockComments ]: [
+												...blockComments,
+												{
+													authorID: parseInt( currentUserId, 10 ),
+													comment: '',
+													dateTime: parseInt( new Date().valueOf(), 10 ),
+													parent: dateTime,
+													uid: parseInt( uid, 10 ),
+												},
+											],
+										},
+									} );
+								} }
+							/>
+						)}
+					</footer>
+				) }
 			</article>
 		);
 	}
