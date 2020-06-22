@@ -174,7 +174,7 @@ class SidebarComments extends Component {
 									const avatarUrl = user[ 0 ].avatar_urls[ 96 ];
 									const classHasChildren = ! _isEmpty( childComments ) ? 'comment__wrapper--has-children' : '';
 									return (
-										<li className={ `comment__wrapper ${ classHasChildren }` }>
+										<li className={ `comment__wrapper ${ classHasChildren }` } key={ dateTime }>
 											<Comment
 												authorID={ authorID }
 												avatarUrl={ avatarUrl }
@@ -217,7 +217,7 @@ class SidebarComments extends Component {
 
 														const avatarUrl = user[ 0 ].avatar_urls[ 96 ];
 														return (
-															<li>
+															<li key={ dateTime }>
 																<Comment
 																	authorID={ authorID }
 																	avatarUrl={ avatarUrl }

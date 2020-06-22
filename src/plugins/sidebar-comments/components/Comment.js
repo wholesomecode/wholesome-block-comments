@@ -45,15 +45,10 @@ class Comment extends Component {
 		if ( ! isSelected ) {
 			if ( element ) {
 				dispatch( 'core/block-editor' ).selectBlock( blockID );
-				currentTarget.focus();
-				let inputControl = currentTarget.querySelector( 'textarea' );
-				if ( inputControl ) {
-					inputControl.focus();
-					inputControl.setSelectionRange( inputControl.value.length, inputControl.value.length );
-				}
+
 				setTimeout( () => {
 					currentTarget.focus();
-					inputControl = currentTarget.querySelector( 'textarea' );
+					const inputControl = currentTarget.querySelector( 'textarea' );
 					if ( inputControl ) {
 						inputControl.focus();
 						inputControl.setSelectionRange( inputControl.value.length, inputControl.value.length );
@@ -114,23 +109,30 @@ class Comment extends Component {
 						<TextareaAutosize
 							className="comment__comment"
 							value={ comment }
+							onBlur={ () => {
+								// TODO: Need to change the array without adding an empty object!
+								// Perhaps splice and re add it?
+								editPost( {
+									...postMeta,
+									meta: {
+										[ metaKeyBlockComments ]: [ {} ].concat( blockComments ),
+									},
+								} );
+							} }
 							onChange={ ( e ) => {
-								const updatedComments = blockComments.filter( ( item ) => item.dateTime !== dateTime );
 								const editedComment = blockComments.filter( ( item ) => item.dateTime === dateTime );
 
 								if ( ! editedComment ) {
 									return;
 								}
 
-								editedComment[ 0 ].comment = e.target.value;
+								const editedCommentIndex = blockComments.indexOf( editedComment[ 0 ] );
+								blockComments[ editedCommentIndex ].comment = e.target.value;
 
 								editPost( {
 									...postMeta,
 									meta: {
-										[ metaKeyBlockComments ]: [
-											...updatedComments,
-											...editedComment,
-										],
+										[ metaKeyBlockComments ]: blockComments,
 									},
 								} );
 							} }
