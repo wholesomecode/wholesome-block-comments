@@ -59,7 +59,6 @@ export default createHigherOrderComponent( ( BlockEdit ) => {
 		const { metaKeyBlockComments } = settings;
 		const blockComments = postMeta[ metaKeyBlockComments ];
 		const currentUserId = select( 'core' ).getCurrentUser().id;
-
 		// Add the inspector control, and the original component (BlockEdit).
 		return (
 			<Fragment>
@@ -95,6 +94,11 @@ export default createHigherOrderComponent( ( BlockEdit ) => {
 										.focus();
 									document.querySelector( `[data-block-comment='${ uid }']` )
 										.scrollIntoView( { behavior: 'smooth', block: 'center', inline: 'nearest' } );
+									const inputControl = document.querySelector( `[data-block-comment='${ uid }'] textarea` );
+									if ( inputControl ) {
+										inputControl.focus();
+										inputControl.setSelectionRange( inputControl.value.length, inputControl.value.length );
+									}
 								},
 								200 );
 							} }

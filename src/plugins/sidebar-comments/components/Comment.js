@@ -24,6 +24,8 @@ class Comment extends Component {
 		const { currentTarget } = e;
 
 		setTimeout( () => {
+			const { parent } = this.props;
+
 			if ( currentTarget.contains( document.activeElement ) ) {
 				return;
 			}
@@ -44,8 +46,18 @@ class Comment extends Component {
 			if ( element ) {
 				dispatch( 'core/block-editor' ).selectBlock( blockID );
 				currentTarget.focus();
+				let inputControl = currentTarget.querySelector( 'textarea' );
+				if ( inputControl ) {
+					inputControl.focus();
+					inputControl.setSelectionRange( inputControl.value.length, inputControl.value.length );
+				}
 				setTimeout( () => {
 					currentTarget.focus();
+					inputControl = currentTarget.querySelector( 'textarea' );
+					if ( inputControl ) {
+						inputControl.focus();
+						inputControl.setSelectionRange( inputControl.value.length, inputControl.value.length );
+					}
 					element.scrollIntoView( { behavior: 'smooth', block: 'center', inline: 'nearest' } );
 				}, 200 );
 			}
@@ -85,7 +97,7 @@ class Comment extends Component {
 		return (
 			<article
 				className={ `${ sidebarName }__comment comment ${ selectedClass } ${ childClass }` }
-				data-block-comment={ uid }
+				data-block-comment={ isParent ? uid : dateTime }
 				onBlur={ this.handleBlur }
 				onFocus={ this.handleFocus }
 				tabIndex="-1"
@@ -134,7 +146,10 @@ class Comment extends Component {
 							icon="trash"
 							label={ __( 'Delete Comment', 'wholesome-publishing' ) }
 							onClick={ () => {
-								const updatedComments = blockComments.filter( ( item ) => item.dateTime !== dateTime );
+								let updatedComments = blockComments.filter( ( item ) => item.dateTime !== dateTime );
+								if ( isParent ) {
+									updatedComments = blockComments.filter( ( item ) => item.dateTime !== dateTime && item.parent !== dateTime );
+								}
 
 								editPost( {
 									...postMeta,
@@ -149,6 +164,7 @@ class Comment extends Component {
 								icon="image-rotate"
 								label={ __( 'Reply', 'wholesome-publishing' ) }
 								onClick={ () => {
+									const newDateTime = parseInt( new Date().valueOf(), 10 );
 									editPost( {
 										...postMeta,
 										meta: {
@@ -157,13 +173,22 @@ class Comment extends Component {
 												{
 													authorID: parseInt( currentUserId, 10 ),
 													comment: '',
-													dateTime: parseInt( new Date().valueOf(), 10 ),
+													dateTime: newDateTime,
 													parent: dateTime,
 													uid: parseInt( uid, 10 ),
 												},
 											],
 										},
 									} );
+									setTimeout( () => {
+										document.querySelector( `[data-block-comment='${ newDateTime }']` )
+											.focus();
+										document.querySelector( `[data-block-comment='${ newDateTime }']` )
+											.scrollIntoView( { behavior: 'smooth', block: 'center', inline: 'nearest' } );
+										document.querySelector( `[data-block-comment='${ newDateTime }'] textarea` )
+											.focus();
+									},
+									200 );
 								} }
 							/>
 						)}

@@ -104,21 +104,8 @@ class SidebarComments extends Component {
 
 		// Retrieve the PHP meta key from the settings, and then access the
 		// value from the postMeta object.
-		const { metaKeyBlockComments, metaKeyExampleToggle } = settings;
-		const exampleToggle = postMeta[ metaKeyExampleToggle ];
+		const { metaKeyBlockComments } = settings;
 		const blockComments = postMeta[ metaKeyBlockComments ];
-
-		// if ( ! _isEmpty( blockOrder ) ) {
-		// 	blockComments.sort( ( a, b ) => {
-		// 		const A = a.uid;
-		// 		const B = b.uid;
-
-		// 		if ( blockOrder.indexOf( A ) > blockOrder.indexOf( B ) ) {
-		// 			return 1;
-		// 		}
-		// 		return -1;
-		// 	} );
-		// }
 
 		return (
 			<Fragment>
@@ -133,25 +120,15 @@ class SidebarComments extends Component {
 						className={ `${ sidebarName }__panel` }
 						title={ __( 'Comments', 'wholesome-publishing' ) }
 					>
-						<ToggleControl
-							checked={ exampleToggle }
-							help={ __( 'This toggle updates the post meta value for the example toggle.',
-								'wholesome-publishing' ) }
-							label={ __( 'Example Toggle Control', 'wholesome-publishing' ) }
-							onChange={ ( value ) => {
-								// On change use editPost to dispatch the updated
-								// postMeta object.
-								editPost( {
-									...postMeta,
-									meta: {
-										[ metaKeyExampleToggle ]: value,
-									},
-								} );
-							} }
-						/>
 						<ul>
 							{ blockOrder.map( ( uid ) => {
 								const currentComments = blockComments.filter( ( block ) => block.parent === 0 && block.uid === uid );
+
+								currentComments.sort( ( a, b ) => {
+									if ( a.dateTime < b.dateTime ) { return -1; }
+									if ( a.dateTime > b.dateTime ) { return 1; }
+									return 0;
+								} );
 
 								return currentComments.map( ( {
 									authorID,
@@ -161,6 +138,12 @@ class SidebarComments extends Component {
 									uid,
 								} ) => {
 									const childComments = blockComments.filter( ( block ) => block.parent === dateTime && block.uid === uid );
+									childComments.sort( ( a, b ) => {
+										if ( a.dateTime < b.dateTime ) { return -1; }
+										if ( a.dateTime > b.dateTime ) { return 1; }
+										return 0;
+									} );
+
 									const block = blocks.filter( ( { attributes } ) => parseInt( attributes.uid, 10 ) === parseInt( uid, 10 ) );
 									let blockID = '';
 
@@ -189,9 +172,9 @@ class SidebarComments extends Component {
 									}
 
 									const avatarUrl = user[ 0 ].avatar_urls[ 96 ];
-
+									const classHasChildren = ! _isEmpty( childComments ) ? 'comment__wrapper--has-children' : '';
 									return (
-										<li className="comment__wrapper">
+										<li className={ `comment__wrapper ${ classHasChildren }` }>
 											<Comment
 												authorID={ authorID }
 												avatarUrl={ avatarUrl }
@@ -202,56 +185,56 @@ class SidebarComments extends Component {
 												parent={ parent }
 												uid={ uid }
 												userName={ userName }
-											>
-												{ childComments && (
-													<ul>
-														{ childComments.map( ( {
-															authorID,
-															comment,
-															dateTime,
-															parent,
-															uid,
-														} ) => {
-															if ( _isEmpty( users ) ) {
-																return null;
-															}
+											/>
+											{ childComments && (
+												<ul>
+													{ childComments.map( ( {
+														authorID,
+														comment,
+														dateTime,
+														parent,
+														uid,
+													} ) => {
+														if ( _isEmpty( users ) ) {
+															return null;
+														}
 
-															const user = users.filter( ( item ) => item.id === authorID );
+														const user = users.filter( ( item ) => item.id === authorID );
 
-															if ( ! user ) {
-																return null;
-															}
+														if ( ! user ) {
+															return null;
+														}
 
-															let userName = `${ user[ 0 ].first_name } ${ user[ 0 ].last_name }`;
+														let userName = `${ user[ 0 ].first_name } ${ user[ 0 ].last_name }`;
 
-															if ( _isEmpty( userName ) ) {
-																userName = user[ 0 ].nickname;
-															}
+														if ( _isEmpty( userName ) ) {
+															userName = user[ 0 ].nickname;
+														}
 
-															if ( _isEmpty( userName ) ) {
-																userName = user[ 0 ].username;
-															}
+														if ( _isEmpty( userName ) ) {
+															userName = user[ 0 ].username;
+														}
 
-															const avatarUrl = user[ 0 ].avatar_urls[ 96 ];
-															return (
-																<li>
-																	<Comment
-																		authorID={ authorID }
-																		avatarUrl={ avatarUrl }
-																		blockID={ blockID }
-																		comment={ comment }
-																		dateTime={ dateTime }
-																		key={ dateTime }
-																		parent={ parent }
-																		uid={ uid }
-																		userName={ userName }
-																	/>
-																</li>
-															);
-														} )}
-													</ul>
-												)}
-											</Comment>
+														const avatarUrl = user[ 0 ].avatar_urls[ 96 ];
+														return (
+															<li>
+																<Comment
+																	authorID={ authorID }
+																	avatarUrl={ avatarUrl }
+																	blockID={ blockID }
+																	comment={ comment }
+																	dateTime={ dateTime }
+																	key={ dateTime }
+																	parent={ parent }
+																	uid={ uid }
+																	userName={ userName }
+																/>
+															</li>
+														);
+													} )}
+												</ul>
+											)}
+
 										</li>
 									);
 								} );

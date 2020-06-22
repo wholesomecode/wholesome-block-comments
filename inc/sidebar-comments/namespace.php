@@ -14,7 +14,6 @@ use const WholesomeCode\WholesomePublishing\PLUGIN_PREFIX;
 use const WholesomeCode\WholesomePublishing\ROOT_DIR;
 
 // The Meta Key for the example toggle meta field.
-const META_KEY_EXAMPLE_TOGGLE = PLUGIN_PREFIX . '_example_toggle';
 const META_KEY_BLOCK_COMMENTS = '_' . PLUGIN_PREFIX . '_block_comments';
 
 /**
@@ -36,7 +35,7 @@ function setup() : void {
  * @return void
  */
 function register_meta_fields() : void {
-
+	// delete_post_meta( 1, META_KEY_BLOCK_COMMENTS );
 	// Get all public post types.
 	$post_types = get_post_types(
 		[
@@ -47,18 +46,6 @@ function register_meta_fields() : void {
 
 	// Register meta for all public post types.
 	foreach ( $post_types as $post_type ) {
-		register_post_meta(
-			$post_type,
-			META_KEY_EXAMPLE_TOGGLE,
-			[
-				'auth_callback' => function() {
-					return current_user_can( 'edit_posts' );
-				},
-				'show_in_rest'  => true,
-				'single'        => true,
-				'type'          => 'boolean',
-			]
-		);
 
 		register_post_meta(
 			$post_type,
@@ -106,7 +93,6 @@ function register_meta_fields() : void {
  * @return array
  */
 function block_settings( $settings ) : array {
-	$settings['metaKeyExampleToggle'] = META_KEY_EXAMPLE_TOGGLE;
 	$settings['metaKeyBlockComments'] = META_KEY_BLOCK_COMMENTS;
 
 	return $settings;
