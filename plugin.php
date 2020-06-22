@@ -26,8 +26,8 @@ namespace WholesomeCode\WholesomePublishing; // @codingStandardsIgnoreLine
  *
  * @see https://engineering.hmn.md/standards/structure/
  */
-const PLUGIN_PREFIX = 'wholesomecode_wholesome_publishing';
-const PLUGIN_SLUG   = 'wholesomecode-wholesome-publishing';
+const PLUGIN_PREFIX = 'wholesome_publishing';
+const PLUGIN_SLUG   = 'wholesome-publishing';
 const ROOT_DIR      = __DIR__;
 const ROOT_FILE     = __FILE__;
 

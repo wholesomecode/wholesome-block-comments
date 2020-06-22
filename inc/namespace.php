@@ -122,7 +122,7 @@ function enqueue_block_editor_assets() : void {
 
 	if ( ! file_exists( $block_editor_asset_path ) ) {
 		throw new \Error(
-			esc_html__( 'You need to run `npm start` or `npm run build` in the root of the plugin "wholesomecode/wholesome-publishing" first.', 'wholesome-publishing' )
+			esc_html__( 'You need to run `npm start` or `npm run build` in the root of the plugin "wholesome-publishing" first.', 'wholesome-publishing' )
 		);
 	}
 
@@ -205,7 +205,7 @@ function enqueue_admin_assets() : void {
 
 	if ( ! file_exists( $admin_asset_path ) ) {
 		throw new \Error(
-			esc_html__( 'You need to run `npm start` or `npm run build` in the root of the plugin "wholesomecode/wholesome-publishing" first.', 'wholesome-publishing' )
+			esc_html__( 'You need to run `npm start` or `npm run build` in the root of the plugin "wholesome-publishing" first.', 'wholesome-publishing' )
 		);
 	}
 
