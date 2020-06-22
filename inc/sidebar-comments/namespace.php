@@ -14,7 +14,8 @@ use const WholesomeCode\WholesomePublishing\PLUGIN_PREFIX;
 use const WholesomeCode\WholesomePublishing\ROOT_DIR;
 
 // The Meta Key for the example toggle meta field.
-const META_KEY_BLOCK_COMMENTS = '_' . PLUGIN_PREFIX . '_block_comments';
+const META_KEY_BLOCK_COMMENTS              = '_' . PLUGIN_PREFIX . '_block_comments';
+const META_KEY_BLOCK_COMMENTS_LAST_UPDATED = '_' . PLUGIN_PREFIX . '_block_comments_last_updated';
 
 /**
  * Setup
@@ -79,6 +80,19 @@ function register_meta_fields() : void {
 				'type'          => 'object',
 			]
 		);
+
+		register_post_meta(
+			$post_type,
+			META_KEY_BLOCK_COMMENTS_LAST_UPDATED,
+			[
+				'auth_callback' => function() {
+					return current_user_can( 'edit_posts' );
+				},
+				'show_in_rest'  => true,
+				'single'        => true,
+				'type'          => 'string',
+			]
+		);
 	}
 }
 
@@ -92,7 +106,8 @@ function register_meta_fields() : void {
  * @return array
  */
 function block_settings( $settings ) : array {
-	$settings['metaKeyBlockComments'] = META_KEY_BLOCK_COMMENTS;
+	$settings['metaKeyBlockComments']            = META_KEY_BLOCK_COMMENTS;
+	$settings['metaKeyBlockCommentsLastUpdated'] = META_KEY_BLOCK_COMMENTS_LAST_UPDATED;
 
 	return $settings;
 }

@@ -22,7 +22,21 @@ import { sidebarName } from './Sidebar';
 class Comment extends Component {
 	constructor( props ) {
 		super( props );
-		this.state = { isSelected: false };
+
+		const { dateTime, postMeta } = this.props;
+		const { metaKeyBlockComments } = settings;
+		const blockComments = postMeta[ metaKeyBlockComments ];
+
+		if ( ! blockComments ) {
+			return;
+		}
+
+		const blockComment = blockComments.filter( ( item ) => item.dateTime === dateTime )[ 0 ];
+
+		this.state = {
+			isSelected: false,
+			comment: blockComment.comment,
+		};
 
 		this.handleBlur = this.handleBlur.bind( this );
 		this.handleFocus = this.handleFocus.bind( this );
@@ -33,8 +47,6 @@ class Comment extends Component {
 		const { currentTarget } = e;
 
 		setTimeout( () => {
-			const { parent } = this.props;
-
 			if ( currentTarget.contains( document.activeElement ) ) {
 				return;
 			}
@@ -87,17 +99,21 @@ class Comment extends Component {
 			userName,
 		} = this.props;
 
-		const { isSelected } = this.state;
+		const { comment: commentState, isSelected } = this.state;
 		const isParent = parent === 0;
 
 		const currentUserId = select( 'core' ).getCurrentUser().id;
-		const { metaKeyBlockComments } = settings;
+		const { metaKeyBlockComments, metaKeyBlockCommentsLastUpdated } = settings;
 		const blockComments = postMeta[ metaKeyBlockComments ];
 		const selectedClass = isSelected ? 'comment__selected' : '';
 		const childClass = ! isParent ? 'comment--child' : '';
 
 		const date = new Date( dateTime );
-		const dateFormatted = `${ date.toISOString().slice( 0, 10 ) } ${ ( `0${ date.getHours() }` ).slice( -2 ) }:${ ( `0${ date.getMinutes() }` ).slice( -2 ) }:${ ( `0${ date.getSeconds() }` ).slice( -2 ) }`;
+		const dateFormatted = `${ date.toISOString()
+			.slice( 0, 10 ) } ${ ( `0${ date.getHours() }` )
+			.slice( -2 ) }:${ ( `0${ date.getMinutes() }` )
+			.slice( -2 ) }:${ ( `0${ date.getSeconds() }` )
+			.slice( -2 ) }`;
 		return (
 			<article
 				className={ `${ sidebarName }__comment comment ${ selectedClass } ${ childClass }` }
@@ -117,22 +133,7 @@ class Comment extends Component {
 					{ isSelected && authorID === currentUserId ? (
 						<TextareaAutosize
 							className="comment__comment"
-							value={ comment }
-							onBlur={ () => {
-								// TODO: This is a hack.
-								const noEmptyComments = blockComments.filter( ( item ) => ! _isEmpty( item ) );
-								let newComments = [ {} ].concat( blockComments );
-								if ( noEmptyComments.length < blockComments.length ) {
-									newComments = noEmptyComments;
-								}
-
-								editPost( {
-									...postMeta,
-									meta: {
-										[ metaKeyBlockComments ]: newComments,
-									},
-								} );
-							} }
+							value={ commentState }
 							onChange={ ( e ) => {
 								const editedComment = blockComments.filter( ( item ) => item.dateTime === dateTime );
 
@@ -143,10 +144,13 @@ class Comment extends Component {
 								const editedCommentIndex = blockComments.indexOf( editedComment[ 0 ] );
 								blockComments[ editedCommentIndex ].comment = e.target.value;
 
+								this.setState( { comment: e.target.value } );
+
 								editPost( {
 									...postMeta,
 									meta: {
 										[ metaKeyBlockComments ]: blockComments,
+										[ metaKeyBlockCommentsLastUpdated ]: new Date().valueOf().toString(),
 									},
 								} );
 							} }

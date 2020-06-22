@@ -41,7 +41,6 @@
 	.comment.comment--child {
 		background: #dee0e1;
 		margin-left: 36px;
-		// margin-right: 8px;
 		margin-top: -4px;
 		padding: 8px;
 
@@ -55,23 +54,4 @@
 		flex-direction: row-reverse;
 		margin-left: 36px;
 	}
-
-	// .comment__wrapper.comment__wrapper--has-children {
-	// 	background: #f3f4f5;
-	// 	padding-bottom: 4px;
-	// 	position: relative;
-
-	// 	> .comment {
-	// 		margin-bottom: 0;
-
-	// 		.comment__controls {
-	// 			background: #f3f4f5;
-	// 			bottom: 0;
-	// 			position: absolute;
-	// 			right: 0;
-	// 		}
-	// 	}
-
-	// }
 }
-
