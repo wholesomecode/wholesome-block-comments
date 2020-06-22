@@ -1,23 +1,51 @@
 /**
  * Third Party Imports.
- *
- * - _isEmpty
- *   Lodash is empty checks if something is truly empty.
- *   @see https://lodash.com/docs/4.17.15#isEmpty
  */
 import _isEmpty from 'lodash/isEmpty';
-
 import TextareaAutosize from 'react-autosize-textarea';
 
+/**
+ * WordPress Imports.
+ */
 import PropTypes from 'prop-types';
 import { Button } from '@wordpress/components';
 import { dispatch, select } from '@wordpress/data';
 import { Component } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
+/**
+ * Plugin Imports.
+ */
 import settings from '../../../settings';
 // eslint-disable-next-line import/no-cycle
 import { sidebarName } from './Sidebar';
+
+const timeSince = ( date ) => {
+	const seconds = Math.floor( ( new Date() - new Date( date ) ) / 1000 );
+
+	let interval = Math.floor( seconds / 31536000 );
+
+	if ( interval > 1 ) {
+		return `${ interval } ${ __( 'years ago', 'wholesome-publishing' ) }`;
+	}
+	interval = Math.floor( seconds / 2592000 );
+	if ( interval > 1 ) {
+		return `${ interval } ${ __( 'months ago', 'wholesome-publishing' ) }`;
+	}
+	interval = Math.floor( seconds / 86400 );
+	if ( interval > 1 ) {
+		return `${ interval } ${ __( 'days ago', 'wholesome-publishing' ) }`;
+	}
+	interval = Math.floor( seconds / 3600 );
+	if ( interval > 1 ) {
+		return `${ interval } ${ __( 'hours ago', 'wholesome-publishing' ) }`;
+	}
+	interval = Math.floor( seconds / 60 );
+	if ( interval > 1 ) {
+		return `${ interval } ${ __( 'minutes ago', 'wholesome-publishing' ) }`;
+	}
+	return `${ Math.floor( seconds ) } ${ __( 'seconds ago', 'wholesome-publishing' ) }`;
+};
 
 class Comment extends Component {
 	constructor( props ) {
@@ -85,7 +113,6 @@ class Comment extends Component {
 	}
 
 	render() {
-		// Props populated via Higher-Order Component.
 		const {
 			authorID,
 			avatarUrl,
@@ -102,18 +129,14 @@ class Comment extends Component {
 		const { comment: commentState, isSelected } = this.state;
 		const isParent = parent === 0;
 
-		const currentUserId = select( 'core' ).getCurrentUser().id;
+		const childClass = ! isParent ? 'comment--child' : '';
+		const selectedClass = isSelected ? 'comment__selected' : '';
+
 		const { metaKeyBlockComments, metaKeyBlockCommentsLastUpdated } = settings;
 		const blockComments = postMeta[ metaKeyBlockComments ];
-		const selectedClass = isSelected ? 'comment__selected' : '';
-		const childClass = ! isParent ? 'comment--child' : '';
+		const currentUserId = select( 'core' ).getCurrentUser().id;
+		const dateFormatted = timeSince( dateTime );
 
-		const date = new Date( dateTime );
-		const dateFormatted = `${ date.toISOString()
-			.slice( 0, 10 ) } ${ ( `0${ date.getHours() }` )
-			.slice( -2 ) }:${ ( `0${ date.getMinutes() }` )
-			.slice( -2 ) }:${ ( `0${ date.getSeconds() }` )
-			.slice( -2 ) }`;
 		return (
 			<article
 				className={ `${ sidebarName }__comment comment ${ selectedClass } ${ childClass }` }
@@ -166,9 +189,11 @@ class Comment extends Component {
 							icon="trash"
 							label={ __( 'Delete Comment', 'wholesome-publishing' ) }
 							onClick={ () => {
-								let updatedComments = blockComments.filter( ( item ) => item.dateTime !== dateTime );
+								let updatedComments = blockComments
+									.filter( ( item ) => item.dateTime !== dateTime );
 								if ( isParent ) {
-									updatedComments = blockComments.filter( ( item ) => item.dateTime !== dateTime && item.parent !== dateTime );
+									updatedComments = blockComments
+										.filter( ( item ) => item.dateTime !== dateTime && item.parent !== dateTime );
 								}
 
 								editPost( {
@@ -204,7 +229,9 @@ class Comment extends Component {
 										document.querySelector( `[data-block-comment='${ newDateTime }']` )
 											.focus();
 										document.querySelector( `[data-block-comment='${ newDateTime }']` )
-											.scrollIntoView( { behavior: 'smooth', block: 'center', inline: 'nearest' } );
+											.scrollIntoView(
+												{ behavior: 'smooth', block: 'center', inline: 'nearest' }
+											);
 										document.querySelector( `[data-block-comment='${ newDateTime }'] textarea` )
 											.focus();
 									},
@@ -224,6 +251,20 @@ export default Comment;
 
 // Typechecking the Component props.
 Comment.propTypes = {
+	authorID: PropTypes.number.isRequired,
+	avatarUrl: PropTypes.string.isRequired,
+	blockID: PropTypes.string.isRequired,
+	children: PropTypes.number.isRequired,
+	comment: PropTypes.string,
+	dateTime: PropTypes.number.isRequired,
 	editPost: PropTypes.func.isRequired,
+	parent: PropTypes.number.isRequired,
 	postMeta: PropTypes.objectOf( PropTypes.any ).isRequired,
+	uid: PropTypes.number.isRequired,
+	userName: PropTypes.string.isRequired,
+};
+
+// Default props.
+Comment.defaultProps = {
+	comment: '',
 };

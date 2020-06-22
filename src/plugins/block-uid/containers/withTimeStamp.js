@@ -6,28 +6,16 @@
 
 /**
  * Third Party Imports.
- *
- * - _isEmpty
- *   Lodash is empty checks if something is truly empty.
- *   @see https://lodash.com/docs/4.17.15#isEmpty
  */
 import _isEmpty from 'lodash/isEmpty';
 
 /**
  * React Imports.
- *
- * - PropTypes
- *   Typechecking for React components.
- *   @see https://reactjs.org/docs/typechecking-with-proptypes.html
  */
 import PropTypes from 'prop-types';
 
 /**
  * WordPress Imports.
- *
- * - createHigherOrderComponent
- *   Returns the enhanced component augmented with a generated displayName.
- *   @see https://developer.wordpress.org/block-editor/packages/packages-compose/#createHigherOrderComponent
  */
 import { createHigherOrderComponent } from '@wordpress/compose';
 
@@ -41,16 +29,12 @@ import { createHigherOrderComponent } from '@wordpress/compose';
  */
 export default createHigherOrderComponent( ( BlockEdit ) => {
 	const withTimeStamp = ( props ) => {
-		// Extract props.
 		const {
-			attributes,
+			attributes: {
+				uid,
+			},
 			setAttributes,
 		} = props;
-
-		// Extract attributes.
-		const {
-			uid,
-		} = attributes;
 
 		if ( _isEmpty( uid ) ) {
 			setAttributes( { uid: new Date().valueOf().toString() } );

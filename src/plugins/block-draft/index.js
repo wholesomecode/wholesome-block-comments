@@ -1,28 +1,17 @@
 /**
  * Block Draft.
  *
- * A plugin to create a custom sidebar that contains permission options.
+ * A plugin to create a custom sidebar that contains block comments.
  */
 
 /**
  * WordPress Imports.
- *
- * - addFilter
- *   WordPress block editor (Gutenberg) filter hook.
- *   @see https://developer.wordpress.org/block-editor/developers/filters/block-filters/
  */
 import { compose } from '@wordpress/compose';
 import { addFilter } from '@wordpress/hooks';
 
 /**
  * Plugin Imports.
- *
- * - attributes
- *   Add additional attributes so that control settings can be saved.
- *
- * - withInspectorControls
- *   Add a Higher-Order Component (HOC) to provide additional Inspector
- *   Controls within a custom section of the sidebar.
  */
 import attributes from './settings/attributes';
 import withIsBlockDraft from './containers/withIsBlockDraft';
@@ -40,22 +29,17 @@ addFilter(
 	'blocks.registerBlockType',
 	'wholesome-publishing/block-draft-attributes',
 	( settings ) => {
-		// Restrict block types.
-		// if ( settings.name !== 'core/image' ) {
-		// 	return settings;
-		// }
-
 		return attributes( settings );
 	}
 );
 
 /**
- * Inspector Inspector Controls.
+ * Inspector Controls.
  *
- * Inspector Controls adds additional controls in the block
+ * IsBlockDraft adds the additional attributes to the block.
+ *
+ * InspectorControls adds additional controls to the block
  * sidebar.
- *
- * @param object settings The existing block settings.
  */
 addFilter(
 	'editor.BlockEdit',

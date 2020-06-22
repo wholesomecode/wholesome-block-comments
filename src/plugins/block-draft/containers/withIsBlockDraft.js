@@ -6,19 +6,11 @@
 
 /**
  * React Imports.
- *
- * - PropTypes
- *   Typechecking for React components.
- *   @see https://reactjs.org/docs/typechecking-with-proptypes.html
  */
 import PropTypes from 'prop-types';
 
 /**
  * WordPress Imports.
- *
- * - createHigherOrderComponent
- *   Returns the enhanced component augmented with a generated displayName.
- *   @see https://developer.wordpress.org/block-editor/packages/packages-compose/#createHigherOrderComponent
  */
 import { createHigherOrderComponent } from '@wordpress/compose';
 
@@ -32,7 +24,6 @@ import { createHigherOrderComponent } from '@wordpress/compose';
  */
 export default createHigherOrderComponent( ( BlockEdit ) => {
 	const withIsBlockDraft = ( props ) => {
-		// Extract props.
 		const {
 			attributes: {
 				isBlockDraft,

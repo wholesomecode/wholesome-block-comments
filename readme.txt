@@ -4,12 +4,12 @@ Donate Link:
 Tags:              block, comments, draft
 Requires at least: 5.3.2
 Tested up to:      5.3.2
-Stable tag:        0.1.0
+Stable tag:        1.0.0
 Requires PHP:      7.0.0
 License:           GPL-2.0-or-later
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html
 
-Wholesome Publishing allows you to create better content with support for draft blocks and block comments.
+Wholesome Publishing: Editor comments for WordPress Gutenberg blocks and Draft block support.
 
 == Description ==
 

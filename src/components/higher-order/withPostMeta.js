@@ -1,3 +1,6 @@
+/**
+  * WordPress Imports.
+  */
 import { createHigherOrderComponent, compose } from '@wordpress/compose';
 import { withDispatch, withSelect } from '@wordpress/data';
 import { __ } from '@wordpress/i18n';
@@ -42,7 +45,7 @@ const mapSelectToProps = ( select ) => {
 /**
  * Register Component
  *
- * Component that registers a toolbar with a button to edit the image.
+ * Component that applies select and dispatch post meta to components.
  */
 export default createHigherOrderComponent( ( OriginalComponent ) => {
 	// Return the Higher-Order Component.

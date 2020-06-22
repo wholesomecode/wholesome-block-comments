@@ -1,7 +1,9 @@
-// Import the component that we are going to wrap.
+/**
+ * WordPress Components.
+ */
 // eslint-disable-next-line import/no-cycle
 import Comment from '../components/Comment';
 import withPostMeta from '../../../components/higher-order/withPostMeta';
 
-// Compose the HOC, and apply it to the Sidebar Component, and Export it.
+// Add post meta to comment.
 export default withPostMeta( Comment );
