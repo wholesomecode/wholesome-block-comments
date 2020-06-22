@@ -36,15 +36,10 @@ function remove_blocks_in_draft( $pre_render, $block ) {
 		return $pre_render;
 	}
 
-	// If the user is logged in, bail.
-	if ( is_user_logged_in() ) {
-		return $pre_render;
-	}
-
 	// If the block requires a login, do not render.
 	if (
 		isset( $block['attrs'] ) &&
-		isset( $block['attrs']['loginRequired'] ) &&
+		isset( $block['attrs']['isBlockDraft'] ) &&
 		$block['attrs']['isBlockDraft']
 	) {
 		return false;
