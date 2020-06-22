@@ -5,7 +5,7 @@
  * Load the PHP methods that support the block editor plugin within
  * /src/plugins/sidebar-comments.
  *
- * @package wholesomecode/wholesome_publishing
+ * @package wholesome_code/wholesome_publishing
  */
 
 namespace WholesomeCode\WholesomePublishing\SidebarComments; // @codingStandardsIgnoreLine

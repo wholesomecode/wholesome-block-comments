@@ -4,7 +4,7 @@
  *
  * Load the PHP methods that support the block editor plugin within
  * /src/plugins/block-drafts.
- * @package wholesomecode/wholesome_publishing
+ * @package wholesome_code/wholesome_publishing
  */
 
 namespace WholesomeCode\WholesomePublishing\BlockDraft; // @codingStandardsIgnoreLine

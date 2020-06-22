@@ -7,14 +7,14 @@
  * Original example taken from CodeinWP.
  * @see https://www.codeinwp.com/blog/plugin-options-page-gutenberg/
  *
- * @package wholesomecode/wholesome_publishing
+ * @package wholesome_code/wholesome_publishing
  */
 
-namespace WholesomeCode\WholesomePublishing\ExampleSettings; // @codingStandardsIgnoreLine
+namespace WholesomeCode\WholesomeBoilerplate\ExampleSettings; // @codingStandardsIgnoreLine
 
-use const WholesomeCode\WholesomePublishing\PLUGIN_PREFIX;
-use const WholesomeCode\WholesomePublishing\ROOT_DIR;
-use const WholesomeCode\WholesomePublishing\ROOT_FILE;
+use const WholesomeCode\WholesomeBoilerplate\PLUGIN_PREFIX;
+use const WholesomeCode\WholesomeBoilerplate\ROOT_DIR;
+use const WholesomeCode\WholesomeBoilerplate\ROOT_FILE;
 
 // Settings URL slug.
 const SETTING_SLUG = 'wholesome_publishing';

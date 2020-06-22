@@ -13,7 +13,7 @@
  * Text Domain:     wholesome-publishing
  * Domain Path:     /languages
  *
- * @package         wholesomecode/wholesome_publishing
+ * @package         wholesome_code/wholesome_publishing
  */
 
 namespace WholesomeCode\WholesomePublishing; // @codingStandardsIgnoreLine
