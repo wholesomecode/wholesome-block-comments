@@ -2,7 +2,7 @@
 
 Wholesome Publishing: Editor comments for WordPress Gutenberg blocks and Draft block support.
 
-Created by [Matt Watson](https://mattwatson.codes)  - [Wholesome Code](https://wholesomecode.ltd.).
+Created by [Matt Watson](https://mattwatson.codes) - [Wholesome Code](https://wholesomecode.ltd.).
 
 Social Media:
 - ([@mattwatsoncodes](https://twitter.com/mattwatsoncodes))
@@ -10,10 +10,11 @@ Social Media:
 
 ## Features
 
+Wholesome Publishing brings some wholesome editing features to the WordPress Block Editor (Gutenberg).
 
-
-## Roadmap
-Planned progress can be found on the project kanban board: https://github.com/wholesomecode/wholesome-publishing/projects/1
+Features include:
+- Ability to add threaded comments to individual blocks.
+- Ability to mark a block as draft, so that it does not appear on the front end.
 
 ## Requesting bugs / features
 Just create a GitHub issue in the repository: https://github.com/wholesomecode/wholesome-publishing/issues

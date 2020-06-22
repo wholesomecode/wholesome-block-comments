@@ -13,61 +13,27 @@ Wholesome Publishing: Editor comments for WordPress Gutenberg blocks and Draft b
 
 == Description ==
 
-This is the long description. No limit, and you can use Markdown (as well as in the following sections).
+Wholesome Publishing brings some wholesome editing features to the WordPress Block Editor (Gutenberg).
 
-For backwards compatibility, if this section is missing, the full length of the short description will be used, and
-Markdown parsed.
+Features include:
+- Ability to add threaded comments to individual blocks.
+- Ability to mark a block as draft, so that it does not appear on the front end.
 
 == Installation ==
 
-This section describes how to install the plugin and get it working.
-
-e.g.
+To install Wholesome Publishing:
 
 1. Upload the plugin files to the `/wp-content/plugins/wholesome-publishing` directory, or install the plugin through the WordPress plugins screen directly.
-1. Activate the plugin through the 'Plugins' screen in WordPress
-
-== Frequently Asked Questions ==
-
-= A question that someone might have =
-
-An answer to that question.
-
-= What about foo bar? =
-
-Answer to foo bar dilemma.
+2. Activate the plugin through the 'Plugins' screen in WordPress
 
 == Screenshots ==
 
-1. This screen shot description corresponds to screenshot-1.(png|jpg|jpeg|gif). Note that the screenshot is taken from
-the /assets directory or the directory that contains the stable readme.txt (tags or trunk). Screenshots in the /assets
-directory take precedence. For example, `/assets/screenshot-1.png` would win over `/tags/4.3/screenshot-1.png`
-(or jpg, jpeg, gif).
-2. This is the second screen shot
+1. WordPress Editor (Gutenberg) block comments.
+2. Draft blocks
+3. Block comments (gif)
+4. Draft blocks (gif)
 
 == Changelog ==
 
-= 0.1.0 =
-* Initial Plugin Skeleton
-
-== Upgrade Notice ==
-
-There are no upgrade notices at this time.
-
-== Requirements ==
-
-Detail any specific requirements here, such as WordPress/WooCommerce versions.
-
-== Known Issues ==
-
-There are no known issues at this time.
-
-== Roadmap ==
-
-There is no specific roadmap at this time.
-
-== Arbitrary section ==
-
-You may provide arbitrary sections, in the same format as the ones above. This may be of use for extremely complicated
-plugins where more information needs to be conveyed that doesn't fit into the categories of "description" or
-"installation." Arbitrary sections will be shown below the built-in sections outlined above.
+= 1.0.0 =
+* Initial Plugin.
