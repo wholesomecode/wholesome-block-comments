@@ -2,6 +2,7 @@
  * Third Party Imports.
  */
 import _isEmpty from 'lodash/isEmpty';
+import _get from 'lodash/get';
 
 /**
  * React Imports.
@@ -103,7 +104,7 @@ class SidebarComments extends Component {
 
 									const user = users.filter( ( item ) => item.id === authorID );
 
-									if ( ! user ) {
+									if ( ! user || ! user[ 0 ] ) {
 										return null;
 									}
 
@@ -117,7 +118,8 @@ class SidebarComments extends Component {
 										userName = user[ 0 ].username;
 									}
 
-									const avatarUrl = user[ 0 ].avatar_urls[ 96 ];
+									const avatarUrl = _get( user, '0.avatar_urls.96',
+										'http://www.gravatar.com/avatar/?d=identicon' );
 									const classHasChildren = ! _isEmpty( childComments )
 										? 'comment__wrapper--has-children' : '';
 									return (
@@ -149,7 +151,7 @@ class SidebarComments extends Component {
 															const user = users
 																.filter( ( item ) => item.id === authorID );
 
-															if ( ! user ) {
+															if ( ! user || ! user[ 0 ] ) {
 																return null;
 															}
 
@@ -165,7 +167,8 @@ class SidebarComments extends Component {
 																userName = user[ 0 ].username;
 															}
 
-															const avatarUrl = user[ 0 ].avatar_urls[ 96 ];
+															const avatarUrl = _get( user, '0.avatar_urls.96',
+																'http://www.gravatar.com/avatar/?d=identicon' );
 															return (
 																<li key={ dateTime }>
 																	<Comment
