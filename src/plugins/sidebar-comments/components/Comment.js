@@ -100,6 +100,7 @@ class Comment extends Component {
 
 	handleFocus( e ) {
 		e.preventDefault();
+		e.stopPropagation();
 		const { currentTarget } = e;
 		const { blockID } = this.props;
 		const element = document.getElementById( `block-${ blockID }` );
