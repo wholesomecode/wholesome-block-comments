@@ -26,6 +26,13 @@ To install Wholesome Publishing:
 1. Upload the plugin files to the `/wp-content/plugins/wholesome-publishing` directory, or install the plugin through the WordPress plugins screen directly.
 2. Activate the plugin through the 'Plugins' screen in WordPress
 
+== Frequently Asked Questions ==
+
+= Avatars are not showing next to my comments =
+
+1. Ensure you have turned on `Show Avatars` from the WordPress dashboard `Settings > Discussion` panel.
+2. Ensure you have registered an Avatar for your email address at [Gravatar](gravatar.com).
+
 == Screenshots ==
 
 1. WordPress Editor (Gutenberg) block comments
