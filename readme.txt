@@ -5,7 +5,7 @@ Tags:              block, comments, draft
 Requires at least: 5.3.2
 Tested up to:      5.3.2
 Stable tag:        1.0.0
-Requires PHP:      7.0.0
+Requires PHP:      7.2.0
 License:           GPL-2.0-or-later
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -35,10 +35,12 @@ To install Wholesome Publishing:
 
 == Screenshots ==
 
-1. WordPress Editor (Gutenberg) block comments
-2. Draft blocks
-3. Block comments (gif)
-4. Draft blocks (gif)
+1. Screenshot of block comments
+2. Screenshot of draft blocks
+3. Adding a block comment
+4. Adding a threaded reply to a block comment
+5. Edit your own comments, blocks are highlighted when you select a comment
+6. Creating a block and setting it to draft
 
 == Changelog ==
 
