@@ -75,6 +75,16 @@ class Comment extends Component {
 		const { currentTarget } = e;
 
 		setTimeout( () => {
+			const { parent } = this.props;
+			const isParent = parent === 0;
+			const isChildSelected = ( ! _isEmpty( document.activeElement ) && document.activeElement.classList.contains( 'comment--child' ) ) || ( ! _isEmpty( document.activeElement.closest( '.comment' ) ) && document.activeElement.closest( '.comment' ).classList.contains( 'comment--child' ) );
+
+			if ( isParent && isChildSelected ) {
+				this.setState( () => ( {
+					isSelected: false,
+				} ) );
+			}
+
 			if ( currentTarget.contains( document.activeElement ) ) {
 				return;
 			}
@@ -103,7 +113,7 @@ class Comment extends Component {
 						inputControl.setSelectionRange( inputControl.value.length, inputControl.value.length );
 					}
 					element.scrollIntoView( { behavior: 'smooth', block: 'center', inline: 'nearest' } );
-				}, 200 );
+				}, 50 );
 			}
 
 			this.setState( () => ( {

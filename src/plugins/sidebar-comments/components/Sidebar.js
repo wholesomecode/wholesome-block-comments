@@ -132,58 +132,58 @@ class SidebarComments extends Component {
 												parent={ parent }
 												uid={ uid }
 												userName={ userName }
-											/>
-											{ childComments && (
-												<ul>
-													{ childComments.map( ( {
-														authorID,
-														comment,
-														dateTime,
-														parent,
-														uid,
-													} ) => {
-														if ( _isEmpty( users ) ) {
-															return null;
-														}
+											>
+												{ childComments && (
+													<ul>
+														{ childComments.map( ( {
+															authorID,
+															comment,
+															dateTime,
+															parent,
+															uid,
+														} ) => {
+															if ( _isEmpty( users ) ) {
+																return null;
+															}
 
-														const user = users.filter( ( item ) => item.id === authorID );
+															const user = users.filter( ( item ) => item.id === authorID );
 
-														if ( ! user ) {
-															return null;
-														}
+															if ( ! user ) {
+																return null;
+															}
 
-														let userName = `${ user[ 0 ]
-															.first_name } ${ user[ 0 ]
-															.last_name }`;
+															let userName = `${ user[ 0 ]
+																.first_name } ${ user[ 0 ]
+																.last_name }`;
 
-														if ( _isEmpty( userName ) ) {
-															userName = user[ 0 ].nickname;
-														}
+															if ( _isEmpty( userName ) ) {
+																userName = user[ 0 ].nickname;
+															}
 
-														if ( _isEmpty( userName ) ) {
-															userName = user[ 0 ].username;
-														}
+															if ( _isEmpty( userName ) ) {
+																userName = user[ 0 ].username;
+															}
 
-														const avatarUrl = user[ 0 ].avatar_urls[ 96 ];
-														return (
-															<li key={ dateTime }>
-																<Comment
-																	authorID={ authorID }
-																	avatarUrl={ avatarUrl }
-																	blockID={ blockID }
-																	comment={ comment }
-																	dateTime={ dateTime }
-																	key={ dateTime }
-																	parent={ parent }
-																	uid={ uid }
-																	userName={ userName }
-																/>
-															</li>
-														);
-													} )}
-												</ul>
-											)}
-
+															const avatarUrl = user[ 0 ].avatar_urls[ 96 ];
+															return (
+																<li key={ dateTime }>
+																	<Comment
+																		authorID={ authorID }
+																		avatarUrl={ avatarUrl }
+																		blockID={ blockID }
+																		comment={ comment }
+																		dateTime={ dateTime }
+																		key={ dateTime }
+																		parent={ parent }
+																		uid={ uid }
+																		userName={ userName }
+																	/>
+																</li>
+															);
+														} )}
+													</ul>
+												)}
+											</Comment>
 										</li>
 									);
 								} );
