@@ -108,14 +108,22 @@ class SidebarComments extends Component {
 										return null;
 									}
 
-									let userName = `${ user[ 0 ].first_name } ${ user[ 0 ].last_name }`;
+									let userName = '';
+									const firstName = _get( user, '0.first_name', '' );
+									const lastName = _get( user, '0.last_name', '' );
+									const nickName = _get( user, '0.nickname', '' );
+									const loginName = _get( user, '0.username', '' );
 
-									if ( _isEmpty( userName ) ) {
-										userName = user[ 0 ].nickname;
+									if ( firstName && lastName ) {
+										userName = `${ firstName } ${ lastName }`;
 									}
 
 									if ( _isEmpty( userName ) ) {
-										userName = user[ 0 ].username;
+										userName = nickName;
+									}
+
+									if ( _isEmpty( userName ) ) {
+										userName = loginName;
 									}
 
 									const avatarUrl = _get( user, '0.avatar_urls.96',
@@ -155,16 +163,22 @@ class SidebarComments extends Component {
 																return null;
 															}
 
-															let userName = `${ user[ 0 ]
-																.first_name } ${ user[ 0 ]
-																.last_name }`;
+															let userName = '';
+															const firstName = _get( user, '0.first_name', '' );
+															const lastName = _get( user, '0.last_name', '' );
+															const nickName = _get( user, '0.nickname', '' );
+															const loginName = _get( user, '0.username', '' );
 
-															if ( _isEmpty( userName ) ) {
-																userName = user[ 0 ].nickname;
+															if ( firstName && lastName ) {
+																userName = `${ firstName } ${ lastName }`;
 															}
 
 															if ( _isEmpty( userName ) ) {
-																userName = user[ 0 ].username;
+																userName = nickName;
+															}
+
+															if ( _isEmpty( userName ) ) {
+																userName = loginName;
 															}
 
 															const avatarUrl = _get( user, '0.avatar_urls.96',
