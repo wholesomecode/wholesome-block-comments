@@ -146,7 +146,8 @@ class SidebarComments extends Component {
 																return null;
 															}
 
-															const user = users.filter( ( item ) => item.id === authorID );
+															const user = users
+																.filter( ( item ) => item.id === authorID );
 
 															if ( ! user ) {
 																return null;
@@ -202,7 +203,12 @@ export default SidebarComments;
 // Typechecking the Component props.
 SidebarComments.propTypes = {
 	blocks: PropTypes.arrayOf( PropTypes.object ).isRequired,
-	blockOrder: PropTypes.arrayOf( PropTypes.string ).isRequired,
+	blockOrder: PropTypes.arrayOf( PropTypes.number ).isRequired,
 	postMeta: PropTypes.objectOf( PropTypes.any ).isRequired,
-	users: PropTypes.arrayOf( PropTypes.object ).isRequired,
+	users: PropTypes.arrayOf( PropTypes.object ),
+};
+
+// Default props.
+SidebarComments.defaultProps = {
+	users: [],
 };

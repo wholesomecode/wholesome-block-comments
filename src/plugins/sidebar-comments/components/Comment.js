@@ -77,7 +77,10 @@ class Comment extends Component {
 		setTimeout( () => {
 			const { parent } = this.props;
 			const isParent = parent === 0;
-			const isChildSelected = ( ! _isEmpty( document.activeElement ) && document.activeElement.classList.contains( 'comment--child' ) ) || ( ! _isEmpty( document.activeElement.closest( '.comment' ) ) && document.activeElement.closest( '.comment' ).classList.contains( 'comment--child' ) );
+			const isChildSelected = ( ! _isEmpty( document.activeElement )
+				&& document.activeElement.classList.contains( 'comment--child' ) )
+				|| ( ! _isEmpty( document.activeElement.closest( '.comment' ) )
+				&& document.activeElement.closest( '.comment' ).classList.contains( 'comment--child' ) );
 
 			if ( isParent && isChildSelected ) {
 				this.setState( () => ( {
@@ -264,7 +267,7 @@ Comment.propTypes = {
 	authorID: PropTypes.number.isRequired,
 	avatarUrl: PropTypes.string.isRequired,
 	blockID: PropTypes.string.isRequired,
-	children: PropTypes.number.isRequired,
+	children: PropTypes.shape( {} ),
 	comment: PropTypes.string,
 	dateTime: PropTypes.number.isRequired,
 	editPost: PropTypes.func.isRequired,
@@ -276,5 +279,6 @@ Comment.propTypes = {
 
 // Default props.
 Comment.defaultProps = {
+	children: null,
 	comment: '',
 };
