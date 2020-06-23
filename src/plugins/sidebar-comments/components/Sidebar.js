@@ -119,7 +119,7 @@ class SidebarComments extends Component {
 									}
 
 									const avatarUrl = _get( user, '0.avatar_urls.96',
-										'http://www.gravatar.com/avatar/?d=identicon' );
+										'https://secure.gravatar.com/avatar/?s=96&d=mm&r=g' );
 									const classHasChildren = ! _isEmpty( childComments )
 										? 'comment__wrapper--has-children' : '';
 									return (
@@ -168,7 +168,7 @@ class SidebarComments extends Component {
 															}
 
 															const avatarUrl = _get( user, '0.avatar_urls.96',
-																'http://www.gravatar.com/avatar/?d=identicon' );
+																'https://secure.gravatar.com/avatar/?s=96&d=mm&r=g' );
 															return (
 																<li key={ dateTime }>
 																	<Comment
