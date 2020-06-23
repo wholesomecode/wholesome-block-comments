@@ -18,30 +18,32 @@ Features include:
 - Ability to mark a block as draft, so that it does not appear on the front end.
 
 ## Screenshots
-1. Screenshot of block comments
+
 <p align="center">
 	<img src="https://github.com/wholesomecode/wholesome-publishing/blob/stable/assets/screenshot-1.png" alt="Screenshot of block comments" width="500px"/>
+<br/>1. Screenshot of block comments
 </p>
 
-2. Screenshot of draft blocks
+
 <p align="center">
 	<img src="https://github.com/wholesomecode/wholesome-publishing/blob/stable/assets/screenshot-2.png" alt="Screenshot of draft blocks" width="500px"/>
+<br/>2. Screenshot of draft blocks
 </p>
-3. Adding a block comment
+
 <p align="center">
-	<img src="https://github.com/wholesomecode/wholesome-publishing/blob/stable/assets/screenshot-3.gif" alt="Adding a block comment" width="500px"/>
+	<img src="https://github.com/wholesomecode/wholesome-publishing/blob/stable/assets/screenshot-3.gif" alt="Adding a block comment" width="500px"/><br/>3. Adding a block comment
 </p>
-4. Adding a threaded reply to a block comment
+
 <p align="center">
-	<img src="https://github.com/wholesomecode/wholesome-publishing/blob/stable/assets/screenshot-4.gif" alt="Adding a threaded reply to a block comment" width="500px"/>
+	<img src="https://github.com/wholesomecode/wholesome-publishing/blob/stable/assets/screenshot-4.gif" alt="Adding a threaded reply to a block comment" width="500px"/><br/>4. Adding a threaded reply to a block comment
 </p>
-5. Edit your own comments, blocks are highlighted when you select a comment
+
 <p align="center">
-	<img src="https://github.com/wholesomecode/wholesome-publishing/blob/stable/assets/screenshot-5.gif" alt="Edit your own comments, blocks are highlighted when you select a comment." width="500px"/>
+	<img src="https://github.com/wholesomecode/wholesome-publishing/blob/stable/assets/screenshot-5.gif" alt="Edit your own comments, blocks are highlighted when you select a comment." width="500px"/><br/>5. Edit your own comments, blocks are highlighted when you select a comment
 </p>
-6. Creating a block and setting it to draft
+
 <p align="center">
-	<img src="https://github.com/wholesomecode/wholesome-publishing/blob/stable/assets/screenshot-6.gif" alt="Creating a block and setting it to draft" width="500px"/>
+	<img src="https://github.com/wholesomecode/wholesome-publishing/blob/stable/assets/screenshot-6.gif" alt="Creating a block and setting it to draft" width="500px"/><br/>6. Creating a block and setting it to draft
 </p>
 
 ## Requesting bugs / features
