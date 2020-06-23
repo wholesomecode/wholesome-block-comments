@@ -42,7 +42,7 @@ function setup() : void {
 	 *
 	 * Sidebar for Comments.
 	 */
-	require_once ROOT_DIR . '/inc/sidebar-Comments/namespace.php';
+	require_once ROOT_DIR . '/inc/sidebar-comments/namespace.php';
 	SidebarComments\setup();
 }
 
