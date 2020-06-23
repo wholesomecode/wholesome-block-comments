@@ -69,19 +69,19 @@ function register_meta_fields() : void {
 						'type'       => 'object',
 						'properties' => [
 							'authorID' => [
-								'type' => 'number',
+								'type' => 'string',
 							],
 							'comment'  => [
 								'type' => 'string',
 							],
 							'dateTime' => [
-								'type' => 'number',
+								'type' => 'string',
 							],
 							'parent'   => [
-								'type' => 'number',
+								'type' => 'string',
 							],
 							'uid'      => [
-								'type' => 'number',
+								'type' => 'string',
 							],
 						],
 					],

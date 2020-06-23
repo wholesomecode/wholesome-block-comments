@@ -47,18 +47,18 @@ export default createHigherOrderComponent( ( BlockEdit ) => {
 							icon="admin-comments"
 							label={ __( 'Block Comments', 'wholesome-publishing' ) }
 							onClick={ () => {
-								if ( ! blockComments.find( ( item ) => item.uid === parseInt( uid, 10 ) ) ) {
+								if ( ! blockComments.find( ( item ) => item.uid === uid ) ) {
 									editPost( {
 										...postMeta,
 										meta: {
 											[ metaKeyBlockComments ]: [
 												...blockComments,
 												{
-													authorID: parseInt( currentUserId, 10 ),
+													authorID: currentUserId.toString(),
 													comment: '',
-													dateTime: parseInt( new Date().valueOf(), 10 ),
-													parent: 0,
-													uid: parseInt( uid, 10 ),
+													dateTime: new Date().valueOf().toString(),
+													parent: '0',
+													uid,
 												},
 											],
 										},

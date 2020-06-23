@@ -76,7 +76,7 @@ class Comment extends Component {
 
 		setTimeout( () => {
 			const { parent } = this.props;
-			const isParent = parent === 0;
+			const isParent = parent === '0';
 			const isChildSelected = ( ! _isEmpty( document.activeElement )
 				&& document.activeElement.classList.contains( 'comment--child' ) )
 				|| ( ! _isEmpty( document.activeElement.closest( '.comment' ) )
@@ -140,7 +140,7 @@ class Comment extends Component {
 		} = this.props;
 
 		const { comment: commentState, isSelected } = this.state;
-		const isParent = parent === 0;
+		const isParent = parent === '0';
 
 		const childClass = ! isParent ? 'comment--child' : '';
 		const selectedClass = isSelected ? 'comment__selected' : '';
@@ -148,7 +148,7 @@ class Comment extends Component {
 		const { metaKeyBlockComments, metaKeyBlockCommentsLastUpdated } = settings;
 		const blockComments = postMeta[ metaKeyBlockComments ];
 		const currentUserId = select( 'core' ).getCurrentUser().id;
-		const dateFormatted = timeSince( dateTime );
+		const dateFormatted = timeSince( Number( dateTime ) );
 
 		return (
 			<article
@@ -166,7 +166,7 @@ class Comment extends Component {
 					</div>
 				</header>
 				<div className="comment__body">
-					{ isSelected && authorID === currentUserId ? (
+					{ isSelected && authorID === currentUserId.toString() ? (
 						<TextareaAutosize
 							className="comment__comment"
 							value={ commentState }
@@ -222,18 +222,18 @@ class Comment extends Component {
 								icon="image-rotate"
 								label={ __( 'Reply', 'wholesome-publishing' ) }
 								onClick={ () => {
-									const newDateTime = parseInt( new Date().valueOf(), 10 );
+									const newDateTime = new Date().valueOf().toString();
 									editPost( {
 										...postMeta,
 										meta: {
 											[ metaKeyBlockComments ]: [
 												...blockComments,
 												{
-													authorID: parseInt( currentUserId, 10 ),
+													authorID: currentUserId.toString(),
 													comment: '',
 													dateTime: newDateTime,
 													parent: dateTime,
-													uid: parseInt( uid, 10 ),
+													uid,
 												},
 											],
 										},
@@ -264,16 +264,16 @@ export default Comment;
 
 // Typechecking the Component props.
 Comment.propTypes = {
-	authorID: PropTypes.number.isRequired,
+	authorID: PropTypes.string.isRequired,
 	avatarUrl: PropTypes.string.isRequired,
 	blockID: PropTypes.string.isRequired,
 	children: PropTypes.shape( {} ),
 	comment: PropTypes.string,
-	dateTime: PropTypes.number.isRequired,
+	dateTime: PropTypes.string.isRequired,
 	editPost: PropTypes.func.isRequired,
-	parent: PropTypes.number.isRequired,
+	parent: PropTypes.string.isRequired,
 	postMeta: PropTypes.objectOf( PropTypes.any ).isRequired,
-	uid: PropTypes.number.isRequired,
+	uid: PropTypes.string.isRequired,
 	userName: PropTypes.string.isRequired,
 };
 

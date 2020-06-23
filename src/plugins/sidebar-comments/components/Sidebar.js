@@ -65,7 +65,7 @@ class SidebarComments extends Component {
 						<ul>
 							{ blockOrder.map( ( uid ) => {
 								const currentComments = blockComments
-									.filter( ( block ) => block.parent === 0 && block.uid === uid );
+									.filter( ( block ) => block.parent === '0' && block.uid === uid );
 
 								currentComments.sort( ( a, b ) => {
 									if ( a.dateTime < b.dateTime ) { return -1; }
@@ -89,7 +89,7 @@ class SidebarComments extends Component {
 									} );
 
 									const block = blocks.filter( ( { attributes } ) => {
-										return parseInt( attributes.uid, 10 ) === parseInt( uid, 10 );
+										return attributes.uid === uid;
 									} );
 
 									let blockID = '';
@@ -102,7 +102,7 @@ class SidebarComments extends Component {
 										return null;
 									}
 
-									const user = users.filter( ( item ) => item.id === authorID );
+									const user = users.filter( ( item ) => item.id.toString() === authorID );
 
 									if ( ! user || ! user[ 0 ] ) {
 										return null;
@@ -157,7 +157,7 @@ class SidebarComments extends Component {
 															}
 
 															const user = users
-																.filter( ( item ) => item.id === authorID );
+																.filter( ( item ) => item.id.toString() === authorID );
 
 															if ( ! user || ! user[ 0 ] ) {
 																return null;
@@ -220,7 +220,7 @@ export default SidebarComments;
 // Typechecking the Component props.
 SidebarComments.propTypes = {
 	blocks: PropTypes.arrayOf( PropTypes.object ).isRequired,
-	blockOrder: PropTypes.arrayOf( PropTypes.number ).isRequired,
+	blockOrder: PropTypes.arrayOf( PropTypes.string ).isRequired,
 	postMeta: PropTypes.objectOf( PropTypes.any ).isRequired,
 	users: PropTypes.arrayOf( PropTypes.object ),
 };
