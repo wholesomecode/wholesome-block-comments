@@ -40,8 +40,9 @@
 
 	.comment.comment--child {
 		background: #dee0e1;
+		margin-bottom: 0;
 		margin-left: 36px;
-		margin-top: -4px;
+		margin-top: 8px;
 		padding: 8px;
 
 		.comment__body {
@@ -53,5 +54,12 @@
 		display: flex;
 		flex-direction: row-reverse;
 		margin-left: 36px;
+	}
+
+	.comment__wrapper.comment__wrapper--has-children {
+
+		> .comment {
+			padding-bottom: 4px;
+		}
 	}
 }
