@@ -45,7 +45,7 @@ export default createHigherOrderComponent( ( BlockEdit ) => {
 							label={ __( 'Set Block as Draft', 'wholesome-publishing' ) }
 							checked={ isBlockDraft }
 							onChange={ ( isBlockDraft ) => setAttributes( { isBlockDraft } ) }
-							help={ __( 'If block is set to draft it will not show on the front end.',
+							help={ __( 'If the block is set to draft it will not show on the front end.',
 								'wholesome-publishing' ) }
 						/>
 					</PanelBody>
