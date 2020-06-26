@@ -153,7 +153,7 @@ function get_block_comment_author_details() : void {
 				$author_details['avatarUrl'] = get_avatar_url( $author_id );
 				$author_details['userName'] = $first_name . ' ' . $last_name;
 
-				if ( empty( $author_details['userName'] ) ) {
+				if ( empty( trim( $author_details['userName'] ) ) ) {
 					$author_details['userName'] = $user->data->display_name;
 				}
 
