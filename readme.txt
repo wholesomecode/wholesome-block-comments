@@ -52,4 +52,4 @@ To install Wholesome Publishing:
 * Bug Fix: Fixes an issue that only let administrators add and view block comments.
 
 = 1.1.1 =
-* Bug Fix: Fixes an issue that caused the draft block toggle panel to close when usign the toggle.
+* Bug Fix: Fixes an issue that caused the draft block toggle panel to close when using the toggle.
