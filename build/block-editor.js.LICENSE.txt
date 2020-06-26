@@ -10,11 +10,11 @@ object-assign
 	http://www.jacklmoore.com/autosize
 */
 
-/*! ../../../components/higher-order/withPostMeta */
+/*! ../../../data/dataStore */
 
 /*! ../../../settings */
 
-/*! ../../components/higher-order/withPostMeta */
+/*! ../../containers/higher-order/withPostMeta */
 
 /*! ../../sidebar-comments/components/Sidebar */
 
@@ -23,6 +23,8 @@ object-assign
 /*! ../components/Sidebar */
 
 /*! ../containers/Comment */
+
+/*! ../containers/higher-order/withPostMeta */
 
 /*! ../helpers/typeof */
 
@@ -238,6 +240,10 @@ object-assign
 
 /*! @babel/runtime/helpers/toConsumableArray */
 
+/*! @babel/runtime/regenerator */
+
+/*! @wordpress/api-fetch */
+
 /*! @wordpress/block-editor */
 
 /*! @wordpress/components */
@@ -294,6 +300,10 @@ object-assign
 
 /*!*******************************!*\
   !*** ./src/block-editor.scss ***!
+  \*******************************/
+
+/*!*******************************!*\
+  !*** ./src/data/dataStore.js ***!
   \*******************************/
 
 /*!*********************************!*\
@@ -517,6 +527,10 @@ object-assign
   \*******************************************/
 
 /*!*******************************************!*\
+  !*** external {"this":["wp","apiFetch"]} ***!
+  \*******************************************/
+
+/*!*******************************************!*\
   !*** external {"this":["wp","editPost"]} ***!
   \*******************************************/
 
@@ -621,6 +635,10 @@ object-assign
   \**********************************************/
 
 /*!**********************************************!*\
+  !*** external {"this":"regeneratorRuntime"} ***!
+  \**********************************************/
+
+/*!**********************************************!*\
   !*** external {"this":["wp","blockEditor"]} ***!
   \**********************************************/
 
@@ -670,10 +688,6 @@ object-assign
 
 /*!*****************************************************!*\
   !*** ./node_modules/line-height/lib/line-height.js ***!
-  \*****************************************************/
-
-/*!*****************************************************!*\
-  !*** ./src/components/higher-order/withPostMeta.js ***!
   \*****************************************************/
 
 /*!******************************************************!*\
@@ -734,6 +748,10 @@ object-assign
 
 /*!*************************************************************!*\
   !*** ./node_modules/prop-types/lib/ReactPropTypesSecret.js ***!
+  \*************************************************************/
+
+/*!*************************************************************!*\
+  !*** ./src/plugins/containers/higher-order/withPostMeta.js ***!
   \*************************************************************/
 
 /*!***************************************************************!*\

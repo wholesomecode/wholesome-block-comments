@@ -14,18 +14,15 @@ import { withSelect } from '@wordpress/data';
 /**
  * Plugin Imports.
  */
-import withPostMeta from '../../../components/higher-order/withPostMeta';
-// Import the component that we are going to wrap.
+import withPostMeta from '../../containers/higher-order/withPostMeta';
 import Sidebar from '../components/Sidebar';
 
 const mapBlockDetailToProps = ( select ) => {
 	const blocks = select( 'core/block-editor' ).getBlocks();
 	const blockOrder = blocks.map( ( { attributes } ) => attributes.uid );
-	const users = select( 'core' ).getUsers();
 	return {
 		blocks,
 		blockOrder,
-		users,
 	};
 };
 

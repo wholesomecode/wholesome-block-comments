@@ -14,7 +14,7 @@ import { addFilter } from '@wordpress/hooks';
  * Plugin Imports.
  */
 import withBlockControls from './containers/withBlockControls';
-import withPostMeta from '../../components/higher-order/withPostMeta';
+import withPostMeta from '../containers/higher-order/withPostMeta';
 
 addFilter(
 	'editor.BlockEdit',

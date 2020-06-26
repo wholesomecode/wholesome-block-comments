@@ -40,8 +40,8 @@ class SidebarComments extends Component {
 		const {
 			blocks,
 			blockOrder,
+			editPost,
 			postMeta,
-			users,
 		} = this.props;
 
 		// Retrieve the PHP meta key from the settings, and then access the
@@ -92,56 +92,22 @@ class SidebarComments extends Component {
 										return attributes.uid === uid;
 									} );
 
-									let blockID = '';
+									const blockID = _get( block, '0.clientId', '' );
 
-									if ( ! _isEmpty( block ) ) {
-										blockID = block[ 0 ].clientId;
-									}
-
-									if ( _isEmpty( users ) ) {
-										return null;
-									}
-
-									const user = users.filter( ( item ) => item.id.toString() === authorID );
-
-									if ( ! user || ! user[ 0 ] ) {
-										return null;
-									}
-
-									let userName = '';
-									const firstName = _get( user, '0.first_name', '' );
-									const lastName = _get( user, '0.last_name', '' );
-									const nickName = _get( user, '0.nickname', '' );
-									const loginName = _get( user, '0.username', '' );
-
-									if ( firstName && lastName ) {
-										userName = `${ firstName } ${ lastName }`;
-									}
-
-									if ( _isEmpty( userName ) ) {
-										userName = nickName;
-									}
-
-									if ( _isEmpty( userName ) ) {
-										userName = loginName;
-									}
-
-									const avatarUrl = _get( user, '0.avatar_urls.96',
-										'https://secure.gravatar.com/avatar/?s=96&d=mm&r=g' );
 									const classHasChildren = ! _isEmpty( childComments )
 										? 'comment__wrapper--has-children' : '';
 									return (
 										<li className={ `comment__wrapper ${ classHasChildren }` } key={ dateTime }>
 											<Comment
 												authorID={ authorID }
-												avatarUrl={ avatarUrl }
 												blockID={ blockID }
 												comment={ comment }
 												dateTime={ dateTime }
+												editPost={ editPost }
 												key={ dateTime }
 												parent={ parent }
+												postMeta={ postMeta }
 												uid={ uid }
-												userName={ userName }
 											>
 												{ childComments && (
 													<ul>
@@ -152,49 +118,18 @@ class SidebarComments extends Component {
 															parent,
 															uid,
 														} ) => {
-															if ( _isEmpty( users ) ) {
-																return null;
-															}
-
-															const user = users
-																.filter( ( item ) => item.id.toString() === authorID );
-
-															if ( ! user || ! user[ 0 ] ) {
-																return null;
-															}
-
-															let userName = '';
-															const firstName = _get( user, '0.first_name', '' );
-															const lastName = _get( user, '0.last_name', '' );
-															const nickName = _get( user, '0.nickname', '' );
-															const loginName = _get( user, '0.username', '' );
-
-															if ( firstName && lastName ) {
-																userName = `${ firstName } ${ lastName }`;
-															}
-
-															if ( _isEmpty( userName ) ) {
-																userName = nickName;
-															}
-
-															if ( _isEmpty( userName ) ) {
-																userName = loginName;
-															}
-
-															const avatarUrl = _get( user, '0.avatar_urls.96',
-																'https://secure.gravatar.com/avatar/?s=96&d=mm&r=g' );
 															return (
 																<li key={ dateTime }>
 																	<Comment
 																		authorID={ authorID }
-																		avatarUrl={ avatarUrl }
 																		blockID={ blockID }
 																		comment={ comment }
 																		dateTime={ dateTime }
+																		editPost={ editPost }
 																		key={ dateTime }
 																		parent={ parent }
+																		postMeta={ postMeta }
 																		uid={ uid }
-																		userName={ userName }
 																	/>
 																</li>
 															);
@@ -221,11 +156,6 @@ export default SidebarComments;
 SidebarComments.propTypes = {
 	blocks: PropTypes.arrayOf( PropTypes.object ).isRequired,
 	blockOrder: PropTypes.arrayOf( PropTypes.string ).isRequired,
+	editPost: PropTypes.func.isRequired,
 	postMeta: PropTypes.objectOf( PropTypes.any ).isRequired,
-	users: PropTypes.arrayOf( PropTypes.object ),
-};
-
-// Default props.
-SidebarComments.defaultProps = {
-	users: [],
 };

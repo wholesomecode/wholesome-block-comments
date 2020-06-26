@@ -41,11 +41,6 @@ addFilter(
 	'blocks.registerBlockType',
 	'wholesome-publishing/block-uid-attributes',
 	( settings ) => {
-		// Restrict block types.
-		// if ( settings.name !== 'core/image' ) {
-		// 	return settings;
-		// }
-
 		return attributes( settings );
 	}
 );
