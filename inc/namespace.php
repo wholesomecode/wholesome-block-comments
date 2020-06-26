@@ -17,6 +17,8 @@ namespace WholesomeCode\WholesomePublishing; // @codingStandardsIgnoreLine
  */
 function setup() : void {
 
+	register_activation_hook( ROOT_FILE, __NAMESPACE__ . '\\activate' );
+
 	// Load text domain.
 	load_plugin_textdomain( 'wholesome-publishing', false, ROOT_DIR . '\languages' );
 
@@ -44,6 +46,17 @@ function setup() : void {
 	 */
 	require_once ROOT_DIR . '/inc/sidebar-comments/namespace.php';
 	SidebarComments\setup();
+}
+
+/**
+ * Activate hook.
+ *
+ * - Flush rewrite rules.
+ *
+ * @return void
+ */
+function activate() : void {
+	flush_rewrite_rules();
 }
 
 /**

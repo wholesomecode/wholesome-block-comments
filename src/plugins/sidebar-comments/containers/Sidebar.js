@@ -21,11 +21,9 @@ import Sidebar from '../components/Sidebar';
 const mapBlockDetailToProps = ( select ) => {
 	const blocks = select( 'core/block-editor' ).getBlocks();
 	const blockOrder = blocks.map( ( { attributes } ) => attributes.uid );
-	const users = select( 'core' ).getUsers();
 	return {
 		blocks,
 		blockOrder,
-		users,
 	};
 };
 

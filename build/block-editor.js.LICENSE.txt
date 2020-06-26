@@ -24,6 +24,8 @@ object-assign
 
 /*! ../containers/Comment */
 
+/*! ../data */
+
 /*! ../helpers/typeof */
 
 /*! ./../webpack/buildin/global.js */
@@ -237,6 +239,10 @@ object-assign
 /*! @babel/runtime/helpers/possibleConstructorReturn */
 
 /*! @babel/runtime/helpers/toConsumableArray */
+
+/*! @babel/runtime/regenerator */
+
+/*! @wordpress/api-fetch */
 
 /*! @wordpress/block-editor */
 
@@ -517,6 +523,10 @@ object-assign
   \*******************************************/
 
 /*!*******************************************!*\
+  !*** external {"this":["wp","apiFetch"]} ***!
+  \*******************************************/
+
+/*!*******************************************!*\
   !*** external {"this":["wp","editPost"]} ***!
   \*******************************************/
 
@@ -618,6 +628,14 @@ object-assign
 
 /*!**********************************************!*\
   !*** ./node_modules/lodash/_stringToPath.js ***!
+  \**********************************************/
+
+/*!**********************************************!*\
+  !*** ./src/plugins/sidebar-comments/data.js ***!
+  \**********************************************/
+
+/*!**********************************************!*\
+  !*** external {"this":"regeneratorRuntime"} ***!
   \**********************************************/
 
 /*!**********************************************!*\

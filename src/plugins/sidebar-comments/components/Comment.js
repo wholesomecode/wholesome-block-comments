@@ -266,7 +266,7 @@ export default Comment;
 // Typechecking the Component props.
 Comment.propTypes = {
 	authorID: PropTypes.string.isRequired,
-	avatarUrl: PropTypes.string.isRequired,
+	avatarUrl: PropTypes.string,
 	blockID: PropTypes.string.isRequired,
 	children: PropTypes.shape( {} ),
 	comment: PropTypes.string,
@@ -275,11 +275,13 @@ Comment.propTypes = {
 	parent: PropTypes.string.isRequired,
 	postMeta: PropTypes.objectOf( PropTypes.any ).isRequired,
 	uid: PropTypes.string.isRequired,
-	userName: PropTypes.string.isRequired,
+	userName: PropTypes.string,
 };
 
 // Default props.
 Comment.defaultProps = {
+	avatarUrl: 'https://secure.gravatar.com/avatar/?s=96&d=mm&r=g',
 	children: null,
 	comment: '',
+	userName: '',
 };
