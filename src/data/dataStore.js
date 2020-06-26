@@ -1,3 +1,6 @@
+/**
+ * WordPress Imports.
+ */
 import apiFetch from '@wordpress/api-fetch';
 import { registerStore } from '@wordpress/data';
 
@@ -35,7 +38,7 @@ const actions = {
 const resolvers = {
 	* getAuthorDetails( authorId ) {
 		const authorDetails = yield actions.getAuthorDetails(
-			`/wholesome-code/wholesome-publishing/v1/author/${ authorId }`,
+			`/wholesome-code/wholesome-publishing/v1/comment-author/${ authorId }/`,
 		);
 		return actions.setAuthorDetails( { [ authorId ]: authorDetails } );
 	},
@@ -73,6 +76,9 @@ function reducer( state = { authorDetails: {} }, action ) {
 	}
 }
 
+/**
+ * Register Store.
+ */
 const store = registerStore(
 	'wholesome-code/wholesome-publishing/data',
 	{

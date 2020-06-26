@@ -4,7 +4,7 @@ Donate Link:
 Tags:              block, comments, draft
 Requires at least: 5.3.2
 Tested up to:      5.3.2
-Stable tag:        1.0.0
+Stable tag:        1.1.0
 Requires PHP:      7.2.0
 License:           GPL-2.0-or-later
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html
@@ -16,8 +16,8 @@ Wholesome Publishing: Editor comments for WordPress Gutenberg blocks and Draft b
 Wholesome Publishing brings some wholesome editing features to the WordPress Block Editor (Gutenberg).
 
 Features include:
-- Ability to add threaded comments to individual blocks.
-- Ability to mark a block as draft, so that it does not appear on the front end.
+* Ability to add threaded comments to individual blocks.
+* Ability to mark a block as draft, so that it does not appear on the front end.
 
 == Installation ==
 
@@ -46,3 +46,6 @@ To install Wholesome Publishing:
 
 = 1.0.0 =
 * Initial Plugin.
+
+= 1.1.0 =
+* Bug Fix: Fixes and issue where only administrators could add and view block comments.

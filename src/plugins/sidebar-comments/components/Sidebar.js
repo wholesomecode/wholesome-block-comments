@@ -40,8 +40,8 @@ class SidebarComments extends Component {
 		const {
 			blocks,
 			blockOrder,
+			editPost,
 			postMeta,
-			// users,
 		} = this.props;
 
 		// Retrieve the PHP meta key from the settings, and then access the
@@ -103,8 +103,10 @@ class SidebarComments extends Component {
 												blockID={ blockID }
 												comment={ comment }
 												dateTime={ dateTime }
+												editPost={ editPost }
 												key={ dateTime }
 												parent={ parent }
+												postMeta={ postMeta }
 												uid={ uid }
 											>
 												{ childComments && (
@@ -123,8 +125,10 @@ class SidebarComments extends Component {
 																		blockID={ blockID }
 																		comment={ comment }
 																		dateTime={ dateTime }
+																		editPost={ editPost }
 																		key={ dateTime }
 																		parent={ parent }
+																		postMeta={ postMeta }
 																		uid={ uid }
 																	/>
 																</li>
@@ -152,11 +156,6 @@ export default SidebarComments;
 SidebarComments.propTypes = {
 	blocks: PropTypes.arrayOf( PropTypes.object ).isRequired,
 	blockOrder: PropTypes.arrayOf( PropTypes.string ).isRequired,
+	editPost: PropTypes.func.isRequired,
 	postMeta: PropTypes.objectOf( PropTypes.any ).isRequired,
-	// users: PropTypes.arrayOf( PropTypes.object ),
 };
-
-// Default props.
-// SidebarComments.defaultProps = {
-// 	users: [],
-// };

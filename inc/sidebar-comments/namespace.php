@@ -25,7 +25,6 @@ const META_KEY_BLOCK_COMMENTS_LAST_UPDATED = '_' . PLUGIN_PREFIX . '_block_comme
 /**
  * Setup.
  *
- * - Register activation.
  * - Register meta fields.
  * - Add meta keys to settings.
  * - Add custom REST API user endpoint
@@ -137,7 +136,7 @@ function block_settings( $settings ) : array {
 function get_block_comment_author_details() : void {
 	register_rest_route(
 		'wholesome-code/wholesome-publishing/v1',
-		'/author/(?P<id>\d+)',
+		'/comment-author/(?P<id>\d+)/',
 		array(
 			'callback'            => function ( $request ) {
 				$author_id      = isset( $request['id'] ) ? esc_attr( $request['id'] ) : null;

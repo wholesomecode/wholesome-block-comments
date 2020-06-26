@@ -7,9 +7,12 @@
 
 namespace WholesomeCode\WholesomePublishing; // @codingStandardsIgnoreLine
 
+const OPTION_PLUGIN_VERSION = PLUGIN_PREFIX . '_version';
+
 /**
  * Setup
  *
+ * - Register activation.
  * - Load text domain.
  * - Enqueue assets.
  *
@@ -17,7 +20,11 @@ namespace WholesomeCode\WholesomePublishing; // @codingStandardsIgnoreLine
  */
 function setup() : void {
 
+	// Register activation hook.
 	register_activation_hook( ROOT_FILE, __NAMESPACE__ . '\\activate' );
+
+	// After plugin upgrade.
+	plugin_updated();
 
 	// Load text domain.
 	load_plugin_textdomain( 'wholesome-publishing', false, ROOT_DIR . '\languages' );
@@ -57,6 +64,21 @@ function setup() : void {
  */
 function activate() : void {
 	flush_rewrite_rules();
+}
+
+/**
+ * Plugin Updated.
+ *
+ * - Flush rewrite rules.
+ *
+ * @return void
+ */
+function plugin_updated() : void {
+	$plugin_version = get_option( OPTION_PLUGIN_VERSION );
+	if ( PLUGIN_VERSION !== $plugin_version ) {
+		flush_rewrite_rules();
+		update_option( OPTION_PLUGIN_VERSION, PLUGIN_VERSION, true );
+	}
 }
 
 /**

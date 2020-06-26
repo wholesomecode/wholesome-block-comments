@@ -10,8 +10,7 @@ import { withSelect } from '@wordpress/data';
 // eslint-disable-next-line import/no-cycle
 import Comment from '../components/Comment';
 // eslint-disable-next-line no-unused-vars
-import data from '../data';
-import withPostMeta from '../../../components/higher-order/withPostMeta';
+import data from '../../../data/dataStore';
 
 const mapAuthorToProps = ( select, props ) => {
 	const { authorID } = props;
@@ -29,5 +28,4 @@ const mapAuthorToProps = ( select, props ) => {
 // Add post meta to comment.
 export default compose(
 	withSelect( mapAuthorToProps ),
-	withPostMeta,
 )( Comment );
