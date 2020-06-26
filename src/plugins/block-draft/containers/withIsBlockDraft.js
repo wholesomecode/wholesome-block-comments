@@ -31,18 +31,15 @@ export default createHigherOrderComponent( ( BlockEdit ) => {
 			isSelected,
 		} = props;
 
-		if ( isBlockDraft ) {
-			const blockClass = isSelected ? 'draft-block__selected' : '';
-			return (
-				<div className={ `draft-block ${ blockClass }` }>
-					<BlockEdit { ...props } />
-				</div>
-			);
+		let blockClass = isBlockDraft ? 'draft-block' : '';
+		if ( isBlockDraft && isSelected ) {
+			blockClass += ' draft-block__selected';
 		}
 
-		// Load original component.
 		return (
-			<BlockEdit { ...props } />
+			<div className={ blockClass }>
+				<BlockEdit { ...props } />
+			</div>
 		);
 	};
 
