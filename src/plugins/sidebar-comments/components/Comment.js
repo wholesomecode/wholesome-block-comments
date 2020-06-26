@@ -92,6 +92,10 @@ class Comment extends Component {
 				return;
 			}
 
+			if ( document.activeElement.tagName === 'BODY' ) {
+				return;
+			}
+
 			this.setState( () => ( {
 				isSelected: false,
 			} ) );
