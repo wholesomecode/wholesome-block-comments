@@ -10,9 +10,13 @@ object-assign
 	http://www.jacklmoore.com/autosize
 */
 
+/*! ../../../containers/higher-order/withPostMeta */
+
 /*! ../../../data/dataStore */
 
 /*! ../../../settings */
+
+/*! ../../../utils/timeSince */
 
 /*! ../../containers/higher-order/withPostMeta */
 
@@ -23,8 +27,6 @@ object-assign
 /*! ../components/Sidebar */
 
 /*! ../containers/Comment */
-
-/*! ../containers/higher-order/withPostMeta */
 
 /*! ../helpers/typeof */
 
@@ -270,6 +272,8 @@ object-assign
 
 /*! exports provided: sidebarName, sidebarTitle, default */
 
+/*! exports provided: timeSince */
+
 /*! line-height */
 
 /*! lodash/get */
@@ -305,6 +309,10 @@ object-assign
 /*!*******************************!*\
   !*** ./src/data/dataStore.js ***!
   \*******************************/
+
+/*!********************************!*\
+  !*** ./src/utils/timeSince.js ***!
+  \********************************/
 
 /*!*********************************!*\
   !*** external {"this":"React"} ***!
@@ -690,6 +698,10 @@ object-assign
   !*** ./node_modules/line-height/lib/line-height.js ***!
   \*****************************************************/
 
+/*!*****************************************************!*\
+  !*** ./src/containers/higher-order/withPostMeta.js ***!
+  \*****************************************************/
+
 /*!******************************************************!*\
   !*** ./src/plugins/block-uid/settings/attributes.js ***!
   \******************************************************/
@@ -748,10 +760,6 @@ object-assign
 
 /*!*************************************************************!*\
   !*** ./node_modules/prop-types/lib/ReactPropTypesSecret.js ***!
-  \*************************************************************/
-
-/*!*************************************************************!*\
-  !*** ./src/plugins/containers/higher-order/withPostMeta.js ***!
   \*************************************************************/
 
 /*!***************************************************************!*\

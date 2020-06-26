@@ -19,33 +19,7 @@ import { __ } from '@wordpress/i18n';
 import settings from '../../../settings';
 // eslint-disable-next-line import/no-cycle
 import { sidebarName } from './Sidebar';
-
-const timeSince = ( date ) => {
-	const seconds = Math.floor( ( new Date() - new Date( date ) ) / 1000 );
-
-	let interval = Math.floor( seconds / 31536000 );
-
-	if ( interval > 1 ) {
-		return `${ interval } ${ __( 'years ago', 'wholesome-publishing' ) }`;
-	}
-	interval = Math.floor( seconds / 2592000 );
-	if ( interval > 1 ) {
-		return `${ interval } ${ __( 'months ago', 'wholesome-publishing' ) }`;
-	}
-	interval = Math.floor( seconds / 86400 );
-	if ( interval > 1 ) {
-		return `${ interval } ${ __( 'days ago', 'wholesome-publishing' ) }`;
-	}
-	interval = Math.floor( seconds / 3600 );
-	if ( interval > 1 ) {
-		return `${ interval } ${ __( 'hours ago', 'wholesome-publishing' ) }`;
-	}
-	interval = Math.floor( seconds / 60 );
-	if ( interval > 1 ) {
-		return `${ interval } ${ __( 'minutes ago', 'wholesome-publishing' ) }`;
-	}
-	return `${ Math.floor( seconds ) } ${ __( 'seconds ago', 'wholesome-publishing' ) }`;
-};
+import { timeSince } from '../../../utils/timeSince';
 
 class Comment extends Component {
 	constructor( props ) {
@@ -74,6 +48,12 @@ class Comment extends Component {
 		e.preventDefault();
 		const { currentTarget } = e;
 
+		// Reset opacity.
+		const commentWrappers = document.querySelectorAll( '.wholesome-publishing-comments__panel .comment:not(.comment--child)' );
+		commentWrappers.forEach( ( item ) => {
+			item.style.opacity = '1';
+		} );
+
 		setTimeout( () => {
 			const { parent } = this.props;
 			const isParent = parent === '0';
@@ -99,7 +79,7 @@ class Comment extends Component {
 			this.setState( () => ( {
 				isSelected: false,
 			} ) );
-		}, 200 );
+		}, 50 );
 	}
 
 	handleFocus( e ) {
@@ -121,6 +101,14 @@ class Comment extends Component {
 						inputControl.setSelectionRange( inputControl.value.length, inputControl.value.length );
 					}
 					element.scrollIntoView( { behavior: 'smooth', block: 'center', inline: 'nearest' } );
+
+					// Make all but selected opaque.
+					const commentWrappers = document.querySelectorAll( '.wholesome-publishing-comments__panel .comment:not(.comment--child)' );
+					commentWrappers.forEach( ( item ) => {
+						if ( ! item.classList.contains( 'comment__selected' ) && ! item.querySelector( '.comment__selected' ) ) {
+							item.style.opacity = '0.4';
+						}
+					} );
 				}, 50 );
 			}
 

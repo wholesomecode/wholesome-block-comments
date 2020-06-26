@@ -14,7 +14,7 @@ import { withSelect } from '@wordpress/data';
 /**
  * Plugin Imports.
  */
-import withPostMeta from '../../containers/higher-order/withPostMeta';
+import withPostMeta from '../../../containers/higher-order/withPostMeta';
 import Sidebar from '../components/Sidebar';
 
 const mapBlockDetailToProps = ( select ) => {
