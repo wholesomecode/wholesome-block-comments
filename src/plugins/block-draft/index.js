@@ -7,7 +7,6 @@
 /**
  * WordPress Imports.
  */
-import { compose } from '@wordpress/compose';
 import { addFilter } from '@wordpress/hooks';
 
 /**
@@ -33,20 +32,16 @@ addFilter(
 	}
 );
 
-/**
- * Inspector Controls.
- *
- * IsBlockDraft adds the additional attributes to the block.
- *
- * InspectorControls adds additional controls to the block
- * sidebar.
- */
+// InspectorControls adds additional controls to the block sidebar.
 addFilter(
 	'editor.BlockEdit',
 	'wholesome-publishing/block-draft-inspector',
-	compose( [
-		withIsBlockDraft,
-		withInspectorControls,
-	] ),
-	0
+	withInspectorControls,
+);
+
+// IsBlockDraft adds the additional attributes to the block.
+addFilter(
+	'editor.BlockListBlock',
+	'wholesome-publishing/block-draft-class',
+	withIsBlockDraft
 );

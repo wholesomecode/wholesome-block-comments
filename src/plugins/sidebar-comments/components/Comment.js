@@ -49,7 +49,8 @@ class Comment extends Component {
 		const { currentTarget } = e;
 
 		// Reset opacity.
-		const commentWrappers = document.querySelectorAll( '.wholesome-publishing-comments__panel .comment:not(.comment--child)' );
+		const commentWrappers = document
+			.querySelectorAll( '.wholesome-publishing-comments__panel .comment:not(.comment--child)' );
 		commentWrappers.forEach( ( item ) => {
 			item.style.opacity = '1';
 		} );
@@ -103,9 +104,13 @@ class Comment extends Component {
 					element.scrollIntoView( { behavior: 'smooth', block: 'center', inline: 'nearest' } );
 
 					// Make all but selected opaque.
-					const commentWrappers = document.querySelectorAll( '.wholesome-publishing-comments__panel .comment:not(.comment--child)' );
+					const commentWrappers = document
+						.querySelectorAll( '.wholesome-publishing-comments__panel .comment:not(.comment--child)' );
 					commentWrappers.forEach( ( item ) => {
-						if ( ! item.classList.contains( 'comment__selected' ) && ! item.querySelector( '.comment__selected' ) ) {
+						if (
+							! item.classList.contains( 'comment__selected' )
+							&& ! item.querySelector( '.comment__selected' )
+						) {
 							item.style.opacity = '0.4';
 						}
 					} );

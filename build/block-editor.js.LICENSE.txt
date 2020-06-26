@@ -234,6 +234,8 @@ object-assign
 
 /*! @babel/runtime/helpers/defineProperty */
 
+/*! @babel/runtime/helpers/extends */
+
 /*! @babel/runtime/helpers/getPrototypeOf */
 
 /*! @babel/runtime/helpers/inherits */
@@ -709,6 +711,10 @@ object-assign
 /*!*******************************************************!*\
   !*** ./node_modules/@babel/runtime/helpers/typeof.js ***!
   \*******************************************************/
+
+/*!********************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/extends.js ***!
+  \********************************************************/
 
 /*!********************************************************!*\
   !*** ./src/plugins/block-draft/settings/attributes.js ***!
