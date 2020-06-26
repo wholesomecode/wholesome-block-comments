@@ -48,4 +48,4 @@ To install Wholesome Publishing:
 * Initial Plugin.
 
 = 1.1.0 =
-* Bug Fix: Fixes and issue where only administrators could add and view block comments.
+* Bug Fix: Fixes an issue that only let administrators add and view block comments.
