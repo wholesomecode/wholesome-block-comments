@@ -6,11 +6,9 @@ import PropTypes from 'prop-types';
 /**
  * WordPress Imports.
  */
-import { Button, Toolbar } from '@wordpress/components';
-import { BlockControls } from '@wordpress/block-editor';
-import { createHigherOrderComponent } from '@wordpress/compose';
+import { Button } from '@wordpress/components';
 import { dispatch, select } from '@wordpress/data';
-import { Component, Fragment } from '@wordpress/element';
+import { Component } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
 /**
@@ -87,3 +85,10 @@ class CommentAdd extends Component {
 
 // Export the CommentAdd Component.
 export default CommentAdd;
+
+// Typechecking the Component props.
+CommentAdd.propTypes = {
+	editPost: PropTypes.func.isRequired,
+	postMeta: PropTypes.objectOf( PropTypes.any ).isRequired,
+	uid: PropTypes.string.isRequired,
+};

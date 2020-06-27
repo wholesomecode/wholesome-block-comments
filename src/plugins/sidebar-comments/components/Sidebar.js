@@ -64,6 +64,15 @@ class SidebarComments extends Component {
 						className={ `${ sidebarName }__panel` }
 						title={ __( 'Comments', 'wholesome-publishing' ) }
 					>
+						{ _isEmpty( blockComments ) && (
+							<p>
+								{
+									// eslint-disable-next-line max-len
+									__( 'There are currently no block comments. Select a block from the editor to get started.',
+										'wholesome-publishing' )
+								}
+							</p>
+						)}
 						<ul>
 							{ blockOrder.map( ( uid ) => {
 								const currentComments = blockComments
