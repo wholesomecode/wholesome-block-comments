@@ -16,6 +16,8 @@ object-assign
 
 /*! ../../../settings */
 
+/*! ../../../utils/commentHighlighting */
+
 /*! ../../../utils/timeSince */
 
 /*! ../../containers/higher-order/withPostMeta */
@@ -30,9 +32,13 @@ object-assign
 
 /*! ../helpers/typeof */
 
+/*! ../plugins/sidebar-comments/components/Sidebar */
+
 /*! ./../webpack/buildin/global.js */
 
 /*! ./../webpack/buildin/module.js */
+
+/*! ./CommentAdd */
 
 /*! ./Sidebar */
 
@@ -164,6 +170,8 @@ object-assign
 
 /*! ./containers/Sidebar */
 
+/*! ./containers/withBlockCommentSelector */
+
 /*! ./containers/withBlockControls */
 
 /*! ./containers/withInspectorControls */
@@ -271,6 +279,8 @@ object-assign
 /*! computed-style */
 
 /*! exports provided: default */
+
+/*! exports provided: selectBlockComment, unhighlightBlockComments, highlightBlockComment */
 
 /*! exports provided: sidebarName, sidebarTitle, default */
 
@@ -494,6 +504,10 @@ object-assign
 
 /*!******************************************!*\
   !*** ./src/plugins/block-draft/index.js ***!
+  \******************************************/
+
+/*!******************************************!*\
+  !*** ./src/utils/commentHighlighting.js ***!
   \******************************************/
 
 /*!******************************************!*\
@@ -784,6 +798,10 @@ object-assign
   !*** ./node_modules/@babel/runtime/helpers/setPrototypeOf.js ***!
   \***************************************************************/
 
+/*!***************************************************************!*\
+  !*** ./src/plugins/sidebar-comments/components/CommentAdd.js ***!
+  \***************************************************************/
+
 /*!****************************************************************!*\
   !*** ./node_modules/@babel/runtime/helpers/iterableToArray.js ***!
   \****************************************************************/
@@ -834,6 +852,10 @@ object-assign
 
 /*!***************************************************************************!*\
   !*** ./node_modules/@babel/runtime/helpers/unsupportedIterableToArray.js ***!
+  \***************************************************************************/
+
+/*!***************************************************************************!*\
+  !*** ./src/plugins/block-comments/containers/withBlockCommentSelector.js ***!
   \***************************************************************************/
 
 /** @license React v16.13.1

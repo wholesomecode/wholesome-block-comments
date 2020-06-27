@@ -23,6 +23,8 @@ import { __ } from '@wordpress/i18n';
 import settings from '../../../settings';
 // eslint-disable-next-line import/no-cycle
 import Comment from '../containers/Comment';
+// eslint-disable-next-line import/no-cycle
+import CommentAdd from './CommentAdd';
 
 // The name and title of the plugin, so that it can be registered and if
 // needed accessed within a filter.
@@ -66,6 +68,17 @@ class SidebarComments extends Component {
 							{ blockOrder.map( ( uid ) => {
 								const currentComments = blockComments
 									.filter( ( block ) => block.parent === '0' && block.uid === uid );
+
+								if ( _isEmpty( currentComments ) ) {
+									return (
+										<CommentAdd
+											editPost={ editPost }
+											key={ uid }
+											postMeta={ postMeta }
+											uid={ uid }
+										/>
+									);
+								}
 
 								currentComments.sort( ( a, b ) => {
 									if ( a.dateTime < b.dateTime ) { return -1; }

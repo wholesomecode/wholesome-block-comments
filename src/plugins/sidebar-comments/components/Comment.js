@@ -20,6 +20,8 @@ import settings from '../../../settings';
 // eslint-disable-next-line import/no-cycle
 import { sidebarName } from './Sidebar';
 import { timeSince } from '../../../utils/timeSince';
+// eslint-disable-next-line import/no-cycle
+import { highlightBlockComment } from '../../../utils/commentHighlighting';
 
 class Comment extends Component {
 	constructor( props ) {
@@ -47,13 +49,6 @@ class Comment extends Component {
 	handleBlur( e ) {
 		e.preventDefault();
 		const { currentTarget } = e;
-
-		// Reset opacity.
-		const commentWrappers = document
-			.querySelectorAll( '.wholesome-publishing-comments__panel .comment:not(.comment--child)' );
-		commentWrappers.forEach( ( item ) => {
-			item.style.opacity = '1';
-		} );
 
 		setTimeout( () => {
 			const { parent } = this.props;
@@ -86,6 +81,7 @@ class Comment extends Component {
 	handleFocus( e ) {
 		e.preventDefault();
 		e.stopPropagation();
+
 		const { currentTarget } = e;
 		const { blockID } = this.props;
 		const element = document.getElementById( `block-${ blockID }` );
@@ -102,18 +98,7 @@ class Comment extends Component {
 						inputControl.setSelectionRange( inputControl.value.length, inputControl.value.length );
 					}
 					element.scrollIntoView( { behavior: 'smooth', block: 'center', inline: 'nearest' } );
-
-					// Make all but selected opaque.
-					const commentWrappers = document
-						.querySelectorAll( '.wholesome-publishing-comments__panel .comment:not(.comment--child)' );
-					commentWrappers.forEach( ( item ) => {
-						if (
-							! item.classList.contains( 'comment__selected' )
-							&& ! item.querySelector( '.comment__selected' )
-						) {
-							item.style.opacity = '0.4';
-						}
-					} );
+					highlightBlockComment();
 				}, 50 );
 			}
 
@@ -257,7 +242,7 @@ class Comment extends Component {
 	}
 }
 
-// Export the Sidebar.
+// Export the Comment.
 export default Comment;
 
 // Typechecking the Component props.
