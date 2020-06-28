@@ -19,33 +19,9 @@ import { __ } from '@wordpress/i18n';
 import settings from '../../../settings';
 // eslint-disable-next-line import/no-cycle
 import { sidebarName } from './Sidebar';
-
-const timeSince = ( date ) => {
-	const seconds = Math.floor( ( new Date() - new Date( date ) ) / 1000 );
-
-	let interval = Math.floor( seconds / 31536000 );
-
-	if ( interval > 1 ) {
-		return `${ interval } ${ __( 'years ago', 'wholesome-publishing' ) }`;
-	}
-	interval = Math.floor( seconds / 2592000 );
-	if ( interval > 1 ) {
-		return `${ interval } ${ __( 'months ago', 'wholesome-publishing' ) }`;
-	}
-	interval = Math.floor( seconds / 86400 );
-	if ( interval > 1 ) {
-		return `${ interval } ${ __( 'days ago', 'wholesome-publishing' ) }`;
-	}
-	interval = Math.floor( seconds / 3600 );
-	if ( interval > 1 ) {
-		return `${ interval } ${ __( 'hours ago', 'wholesome-publishing' ) }`;
-	}
-	interval = Math.floor( seconds / 60 );
-	if ( interval > 1 ) {
-		return `${ interval } ${ __( 'minutes ago', 'wholesome-publishing' ) }`;
-	}
-	return `${ Math.floor( seconds ) } ${ __( 'seconds ago', 'wholesome-publishing' ) }`;
-};
+import { timeSince } from '../../../utils/timeSince';
+// eslint-disable-next-line import/no-cycle
+import { highlightBlockComment } from '../../../utils/commentHighlighting';
 
 class Comment extends Component {
 	constructor( props ) {
@@ -99,12 +75,13 @@ class Comment extends Component {
 			this.setState( () => ( {
 				isSelected: false,
 			} ) );
-		}, 200 );
+		}, 50 );
 	}
 
 	handleFocus( e ) {
 		e.preventDefault();
 		e.stopPropagation();
+
 		const { currentTarget } = e;
 		const { blockID } = this.props;
 		const element = document.getElementById( `block-${ blockID }` );
@@ -121,6 +98,7 @@ class Comment extends Component {
 						inputControl.setSelectionRange( inputControl.value.length, inputControl.value.length );
 					}
 					element.scrollIntoView( { behavior: 'smooth', block: 'center', inline: 'nearest' } );
+					highlightBlockComment();
 				}, 50 );
 			}
 
@@ -264,7 +242,7 @@ class Comment extends Component {
 	}
 }
 
-// Export the Sidebar.
+// Export the Comment.
 export default Comment;
 
 // Typechecking the Component props.

@@ -10,9 +10,15 @@ object-assign
 	http://www.jacklmoore.com/autosize
 */
 
+/*! ../../../containers/higher-order/withPostMeta */
+
 /*! ../../../data/dataStore */
 
 /*! ../../../settings */
+
+/*! ../../../utils/commentHighlighting */
+
+/*! ../../../utils/timeSince */
 
 /*! ../../containers/higher-order/withPostMeta */
 
@@ -24,13 +30,15 @@ object-assign
 
 /*! ../containers/Comment */
 
-/*! ../containers/higher-order/withPostMeta */
-
 /*! ../helpers/typeof */
+
+/*! ../plugins/sidebar-comments/components/Sidebar */
 
 /*! ./../webpack/buildin/global.js */
 
 /*! ./../webpack/buildin/module.js */
+
+/*! ./CommentAdd */
 
 /*! ./Sidebar */
 
@@ -162,6 +170,8 @@ object-assign
 
 /*! ./containers/Sidebar */
 
+/*! ./containers/withBlockCommentSelector */
+
 /*! ./containers/withBlockControls */
 
 /*! ./containers/withInspectorControls */
@@ -232,6 +242,8 @@ object-assign
 
 /*! @babel/runtime/helpers/defineProperty */
 
+/*! @babel/runtime/helpers/extends */
+
 /*! @babel/runtime/helpers/getPrototypeOf */
 
 /*! @babel/runtime/helpers/inherits */
@@ -268,7 +280,11 @@ object-assign
 
 /*! exports provided: default */
 
+/*! exports provided: selectBlockComment, unhighlightBlockComments, highlightBlockComment */
+
 /*! exports provided: sidebarName, sidebarTitle, default */
+
+/*! exports provided: timeSince */
 
 /*! line-height */
 
@@ -305,6 +321,10 @@ object-assign
 /*!*******************************!*\
   !*** ./src/data/dataStore.js ***!
   \*******************************/
+
+/*!********************************!*\
+  !*** ./src/utils/timeSince.js ***!
+  \********************************/
 
 /*!*********************************!*\
   !*** external {"this":"React"} ***!
@@ -484,6 +504,10 @@ object-assign
 
 /*!******************************************!*\
   !*** ./src/plugins/block-draft/index.js ***!
+  \******************************************/
+
+/*!******************************************!*\
+  !*** ./src/utils/commentHighlighting.js ***!
   \******************************************/
 
 /*!******************************************!*\
@@ -690,6 +714,10 @@ object-assign
   !*** ./node_modules/line-height/lib/line-height.js ***!
   \*****************************************************/
 
+/*!*****************************************************!*\
+  !*** ./src/containers/higher-order/withPostMeta.js ***!
+  \*****************************************************/
+
 /*!******************************************************!*\
   !*** ./src/plugins/block-uid/settings/attributes.js ***!
   \******************************************************/
@@ -697,6 +725,10 @@ object-assign
 /*!*******************************************************!*\
   !*** ./node_modules/@babel/runtime/helpers/typeof.js ***!
   \*******************************************************/
+
+/*!********************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/extends.js ***!
+  \********************************************************/
 
 /*!********************************************************!*\
   !*** ./src/plugins/block-draft/settings/attributes.js ***!
@@ -750,10 +782,6 @@ object-assign
   !*** ./node_modules/prop-types/lib/ReactPropTypesSecret.js ***!
   \*************************************************************/
 
-/*!*************************************************************!*\
-  !*** ./src/plugins/containers/higher-order/withPostMeta.js ***!
-  \*************************************************************/
-
 /*!***************************************************************!*\
   !*** ./node_modules/@babel/runtime/helpers/classCallCheck.js ***!
   \***************************************************************/
@@ -768,6 +796,10 @@ object-assign
 
 /*!***************************************************************!*\
   !*** ./node_modules/@babel/runtime/helpers/setPrototypeOf.js ***!
+  \***************************************************************/
+
+/*!***************************************************************!*\
+  !*** ./src/plugins/sidebar-comments/components/CommentAdd.js ***!
   \***************************************************************/
 
 /*!****************************************************************!*\
@@ -820,6 +852,10 @@ object-assign
 
 /*!***************************************************************************!*\
   !*** ./node_modules/@babel/runtime/helpers/unsupportedIterableToArray.js ***!
+  \***************************************************************************/
+
+/*!***************************************************************************!*\
+  !*** ./src/plugins/block-comments/containers/withBlockCommentSelector.js ***!
   \***************************************************************************/
 
 /** @license React v16.13.1

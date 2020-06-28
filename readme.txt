@@ -4,7 +4,7 @@ Donate Link:
 Tags:              block, comments, draft
 Requires at least: 5.3.2
 Tested up to:      5.3.2
-Stable tag:        1.1.1
+Stable tag:        1.2.0
 Requires PHP:      7.2.0
 License:           GPL-2.0-or-later
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html
@@ -53,3 +53,7 @@ To install Wholesome Publishing:
 
 = 1.1.1 =
 * Bug Fix: Fixes an issue that caused the draft block toggle panel to close when using the toggle.
+
+= 1.2.0 =
+* Feature: Better comment highlighting when a block is selected.
+* Bug Fix: Issue with translations not being picked up.

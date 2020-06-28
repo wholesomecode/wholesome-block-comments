@@ -22,7 +22,7 @@ import { createHigherOrderComponent } from '@wordpress/compose';
  * BlockEdit loads in the original block edit function, so this
  * component essentially wraps the original. Hence it is Higher-Order.
  */
-export default createHigherOrderComponent( ( BlockEdit ) => {
+export default createHigherOrderComponent( ( BlockListBlock ) => {
 	const withIsBlockDraft = ( props ) => {
 		const {
 			attributes: {
@@ -35,12 +35,7 @@ export default createHigherOrderComponent( ( BlockEdit ) => {
 		if ( isBlockDraft && isSelected ) {
 			blockClass += ' draft-block__selected';
 		}
-
-		return (
-			<div className={ blockClass }>
-				<BlockEdit { ...props } />
-			</div>
-		);
+		return <BlockListBlock { ...props } className={ blockClass } />;
 	};
 
 	// Component Typechecking.

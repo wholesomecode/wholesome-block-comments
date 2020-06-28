@@ -133,6 +133,12 @@ function enqueue_block_editor_assets() : void {
 		'WholesomePublishingSettings',
 		$block_settings
 	);
+
+	wp_set_script_translations(
+		PLUGIN_SLUG . '-block-editor',
+		'wholesome-publishing',
+		ROOT_DIR . '\languages'
+	);
 }
 
 /**
