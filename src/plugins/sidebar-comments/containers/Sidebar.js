@@ -6,6 +6,11 @@
  */
 
 /**
+ * Third Party Imports.
+ */
+import _isEmpty from 'lodash/isEmpty';
+
+/**
  * WordPress Imports.
  */
 import { compose } from '@wordpress/compose';
@@ -17,11 +22,30 @@ import { withSelect } from '@wordpress/data';
 import withPostMeta from '../../../containers/higher-order/withPostMeta';
 import Sidebar from '../components/Sidebar';
 
+/**
+ * Flatten Blocks.
+ *
+ * @param {array} blocks Array of blocks.
+ * @param {array} flattened A flattened array of blocks.
+ */
+const flattenBlocks = ( blocks, flattened ) => {
+	blocks.forEach( ( block ) => {
+		flattened.push( block );
+		if ( ! _isEmpty( block.innerBlocks ) ) {
+			flattened = flattenBlocks( block.innerBlocks, flattened );
+		}
+	} );
+
+	return flattened;
+};
+
 const mapBlockDetailToProps = ( select ) => {
 	const blocks = select( 'core/block-editor' ).getBlocks();
-	const blockOrder = blocks.map( ( { attributes } ) => attributes.uid );
+	let flattened = [];
+	flattened = flattenBlocks( blocks, flattened );
+	const blockOrder = flattened.map( ( { attributes } ) => attributes.uid );
 	return {
-		blocks,
+		blocks: flattened,
 		blockOrder,
 	};
 };
