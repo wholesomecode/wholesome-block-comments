@@ -30,7 +30,10 @@ function setup() : void {
 	load_plugin_textdomain( 'wholesome-publishing', false, ROOT_DIR . '\languages' );
 
 	// Enqueue Assets.
-	add_action( 'enqueue_block_editor_assets', __NAMESPACE__ . '\\enqueue_block_editor_assets', 10 );
+	// Note, originally used `enqueue_block_editor_assets` hook, however
+	// there was an issue with third party blocks. Solved with this:
+	// https://github.com/WordPress/gutenberg/issues/9757#issuecomment-486088850
+	add_action( 'init', __NAMESPACE__ . '\\enqueue_block_editor_assets', 10 );
 
 	/**
 	 * Load plugin features.
@@ -118,7 +121,7 @@ function enqueue_block_editor_assets() : void {
 		plugins_url( $block_editor_scripts, ROOT_FILE ),
 		$script_asset['dependencies'],
 		$script_asset['version'],
-		true
+		false
 	);
 
 	wp_enqueue_style(
