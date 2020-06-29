@@ -4,7 +4,7 @@ Donate Link:
 Tags:              block, comments, draft
 Requires at least: 5.3.2
 Tested up to:      5.3.2
-Stable tag:        1.2.1
+Stable tag:        1.2.2
 Requires PHP:      7.2.0
 License:           GPL-2.0-or-later
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html
@@ -60,3 +60,6 @@ To install Wholesome Publishing:
 
 = 1.2.1 =
 * Bug Fix: Issue with comments on innerBlocks now resolved.
+
+= 1.2.2 =
+* Bug Fix: Sometimes comments not applied to third party blocks.
