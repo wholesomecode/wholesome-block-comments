@@ -56,6 +56,14 @@ function setup() : void {
 	 */
 	require_once ROOT_DIR . '/inc/sidebar-comments/namespace.php';
 	SidebarComments\setup();
+
+	/**
+	 * Email Notifications.
+	 *
+	 * Handle email notifications.
+	 */
+	require_once ROOT_DIR . '/inc/email-notifications/namespace.php';
+	EmailNotifications\setup();
 }
 
 /**
