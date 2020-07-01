@@ -30,6 +30,9 @@ function setup() : void {
 
 function handle_emails( $post, $request, $creating = true ) {
 
+	// TODO: Save all post authors using: and notify them "a post you edited"
+	// get_post_meta( $post->ID, '_edit_last', true );
+
 	if ( ! isset( $request['meta'] ) || ! isset( $request['meta'][ META_KEY_BLOCK_COMMENTS ] ) ) {
 		return;
 	}
@@ -56,8 +59,8 @@ function handle_emails( $post, $request, $creating = true ) {
 		if ( 0 === (int) $comment['parent'] ) {
 			// Ensure comment author is not original author.
 			if ( (int) $post->post_author !== (int) $comment['authorID'] ) {
-				// Email original author: username has left a comment on your post.
-				error_log( $post->post_author . ', ' . $comment['authorID'] . 'has left a comment on your post.' );
+				// Email original author: username has left a comment on a post you authored.
+				error_log( $post->post_author . ', ' . $comment['authorID'] . 'has left a comment on a post you authored.' );
 			}
 		}
 
@@ -66,8 +69,8 @@ function handle_emails( $post, $request, $creating = true ) {
 			// Email original author.
 			// Ensure comment author is not original author.
 			if ( (int) $post->post_author !== (int) $comment['authorID'] ) {
-				// Email original author: username has replied to a comment on your post post.
-				error_log( $post->post_author . ', ' . $comment['authorID'] . 'has replied to a comment on your post post.' );
+				// Email original author: username has replied to a comment on a post you authored.
+				error_log( $post->post_author . ', ' . $comment['authorID'] . 'has replied to a comment on a post you authored.' );
 			}
 
 			// Email comment author.
@@ -75,8 +78,8 @@ function handle_emails( $post, $request, $creating = true ) {
 			$comment_parent = $comment[ $key ];
 			// Ensure comment author is not original comment author.
 			if ( $comment_parent['authorID'] !== $comment['authorID'] ) {
-				// Email parent comment author: username has replied to a comment on your post.
-				error_log( $comment_parent['authorID'] . ', ' . $comment['authorID'] . 'has replied to a comment on your post post.' );
+				// Email parent comment author: username has replied to your comment.
+				error_log( $comment_parent['authorID'] . ', ' . $comment['authorID'] . 'has replied to your comment.' );
 			}
 
 			// Email thead commentators.
