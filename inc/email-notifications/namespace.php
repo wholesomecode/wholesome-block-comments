@@ -9,6 +9,7 @@
 
 namespace WholesomeCode\WholesomePublishing\EmailNotifications; // @codingStandardsIgnoreLine
 
+use const WholesomeCode\WholesomePublishing\PLUGIN_PREFIX;
 use const WholesomeCode\WholesomePublishing\SidebarComments\META_KEY_BLOCK_COMMENTS;
 
 /**
@@ -17,6 +18,7 @@ use const WholesomeCode\WholesomePublishing\SidebarComments\META_KEY_BLOCK_COMME
  * - Post meta comments previous.
  */
 const META_KEY_BLOCK_COMMENTS_PREVIOUS = META_KEY_BLOCK_COMMENTS . '_previous';
+const META_KEY_POST_CONTRIBUTORS       = PLUGIN_PREFIX . '_post_contributors';
 
 /**
  * Setup.
@@ -30,8 +32,8 @@ function setup() : void {
 
 function handle_emails( $post, $request, $creating = true ) {
 
-	// TODO: Save all post authors using: and notify them "a post you edited"
-	// get_post_meta( $post->ID, '_edit_last', true );
+	// Code to save post authors here: META_KEY_POST_CONTRIBUTORS.
+	//error_log( get_current_user_id() );
 
 	if ( ! isset( $request['meta'] ) || ! isset( $request['meta'][ META_KEY_BLOCK_COMMENTS ] ) ) {
 		return;
@@ -63,6 +65,10 @@ function handle_emails( $post, $request, $creating = true ) {
 				error_log( $post->post_author . ', ' . $comment['authorID'] . 'has left a comment on a post you authored.' );
 			}
 		}
+
+		// TODO: Save all post authors using: and notify them "a post you contributed to"
+		// get_post_meta( $post->ID, '_edit_last', true ); // THIS DOES NOT WORK, use get_current_user_id();
+		// META_KEY_POST_CONTRIBUTORS
 
 		if ( 0 !== (int) $comment['parent'] ) {
 
