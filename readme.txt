@@ -66,4 +66,3 @@ To install Wholesome Publishing:
 
 = 1.3.0 =
 * Feature: Email notifications if someone comments on your post or replies to your comment.
-* Bug Fix: Cleanup orphaned or empty comments on save.

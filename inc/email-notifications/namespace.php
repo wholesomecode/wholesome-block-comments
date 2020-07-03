@@ -26,8 +26,13 @@ const META_KEY_POST_CONTRIBUTORS       = PLUGIN_PREFIX . '_post_contributors';
  * @return void
  */
 function setup() : void {
-	// TODO: Replace 'post' with a loop of each post type.
-	add_action( 'rest_after_insert_post', __NAMESPACE__ . '\\handle_emails', 10, 3 );
+	// Get all post types.
+	$post_types = get_post_types();
+
+	// Register meta for all public post types.
+	foreach ( $post_types as $post_type ) {
+		add_action( 'rest_after_insert_' . $post_type, __NAMESPACE__ . '\\handle_emails', 10, 3 );
+	}
 }
 
 function handle_emails( $post, $request, $creating = true ) {
@@ -69,6 +74,11 @@ function handle_emails( $post, $request, $creating = true ) {
 
 	foreach ( $comments_new as $comment ) {
 
+		// Don't send emails for empty comments.
+		if ( empty( $comment['comment'] ) ) {
+			continue;
+		}
+
 		// When we do the check, we don't want the comment author emailing.
 		if ( ! in_array( (int) $comment['authorID'], $contacted_authors, true ) ) {
 			$contacted_authors[] = (int) $comment['authorID'];
@@ -83,7 +93,7 @@ function handle_emails( $post, $request, $creating = true ) {
 					$post->ID,
 					$post->post_author,
 					$comment['authorID'],
-					esc_html_e( '[username] has commented on a post that you authored.', 'wholesome-publishing' ),
+					esc_html__( '[username] has commented on a post that you authored.', 'wholesome-publishing' ),
 					$comments_new
 				);
 			}
@@ -100,7 +110,7 @@ function handle_emails( $post, $request, $creating = true ) {
 					$post->ID,
 					$post->post_author,
 					$comment['authorID'],
-					esc_html_e( '[username] has replied to a comment that you authored.', 'wholesome-publishing' ),
+					esc_html__( '[username] has replied to a comment that you authored.', 'wholesome-publishing' ),
 					$comments_new
 				);
 			}
@@ -115,7 +125,7 @@ function handle_emails( $post, $request, $creating = true ) {
 					$post->ID,
 					$comment_parent['authorID'],
 					$comment['authorID'],
-					esc_html_e( '[username] has replied to your comment.', 'wholesome-publishing' ),
+					esc_html__( '[username] has replied to your comment.', 'wholesome-publishing' ),
 					$comments_new
 				);
 				$contacted_authors[] = (int) $comment_parent['authorID'];
@@ -153,7 +163,7 @@ function handle_emails( $post, $request, $creating = true ) {
 					$post->ID,
 					$comment_child['authorID'],
 					$comment['authorID'],
-					esc_html_e( '[username] has replied to a comment that you also replied to.', 'wholesome-publishing' ),
+					esc_html__( '[username] has replied to a comment that you also replied to.', 'wholesome-publishing' ),
 					$comments_new
 				);
 				$contacted_authors[] = (int) $comment_parent['authorID'];
@@ -168,7 +178,7 @@ function handle_emails( $post, $request, $creating = true ) {
 					$post->ID,
 					$post_contributor_id,
 					$comment['authorID'],
-					esc_html_e( '[username] has commented on a post that you have contributed to.', 'wholesome-publishing' ),
+					esc_html__( '[username] has commented on a post that you have contributed to.', 'wholesome-publishing' ),
 					$comments_new
 				);
 			}
@@ -180,17 +190,75 @@ function handle_emails( $post, $request, $creating = true ) {
 
 function send_email( $post_id, $recipient_id, $commenter_id, $message, $comments ) {
 
-	$message = str_replace( '[username]', 'ACTUAL USERNAME', $message );
+	$commenter_user = get_userdata( $commenter_id );
+	$recipient_user = get_userdata( $recipient_id );
 
-	$body  = '<p>' . $message . '</p>';
-	$body .= ''; // Loop $comments and display as ul/li [username]:[comment] (view). // TODO, query param that will open the comment.
-	$body .= ''; // View the comments // TODO, query param that will open the sidebar.
-	$body .= ''; // View the post.
-	$body .= ''; // To opt out of these emails check your settings. // TODO: email frequency user settings page.
+	if ( ! $post_id || ! $recipient_user || ! $commenter_user ) {
+		return;
+	}
 
-	$to      = // ACTUAL EMAIL ADDRESS ;
+	$commenter_username   = '';
+	$commenter_first_name = get_user_meta( $commenter_id, 'first_name', true );
+	$commenter_last_name  = get_user_meta( $commenter_id, 'last_name', true );
+	$commenter_username   = $commenter_first_name . ' ' . $commenter_last_name;
+	$recipient_email      = $recipient_user->user_email;
+
+	if ( empty( trim( $commenter_username ) ) ) {
+		$commenter_username = $commenter_user->data->display_name;
+	}
+
+	$edit_post_url = get_edit_post_link( $post_id );
+
+	$message = str_replace( '[username]', esc_html( $commenter_username ), $message );
+
+	$body = '<p>' . esc_html( $message ) . '</p>';
+
+	foreach ( $comments as $comment ) {
+		// Don't list empty comments.
+		if ( empty( $comment['comment'] ) ) {
+			continue;
+		}
+
+		$uid              = 0 === (int) $comment['parent'] ? $comment['uid'] : $comment['dateTime'];
+		$edit_comment_url = add_query_arg( 'comment_id', $uid, $edit_post_url );
+
+		$body .= '<blockquote>';
+		$body .= esc_html( $comment['comment'] );
+		$body .= '</blockquote>';
+	}
+
+	$body .= '<p>';
+	$body .= esc_html__( 'Actions', 'wholesome-publishing' );
+	$body .= '</p>';
+
+	$body .= '<ul>';
+	$body .= '<li>';
+	$body .= '<a href="' . $edit_post_url . '">';
+	$body .= esc_html__( 'Edit Post', 'wholesome-publishing' );
+	$body .= '</a>';
+	$body .= '</li>';
+	$body .= '<li>';
+	$body .= '<a href="' . get_preview_post_link( $post_id ) . '">';
+	$body .= esc_html__( 'View Post', 'wholesome-publishing' );
+	$body .= '</a>';
+	$body .= '</li>';
+	$body .= '</ul>';
+
+	// $body .= '<p>';
+	// $body .= esc_html__( 'To opt out of these emails ', 'wholesome-publishing' );
+	// $body .= '<a href="' . get_edit_profile_url( $recipient_id ) . '#wholesome-publishing-email-settings">';
+	// $body .= esc_html__( 'alter your email preferences', 'wholesome-publishing' );
+	// $body .= '</a>.';
+	// $body .= '</p>';
+
+	$to      = sanitize_email( $recipient_email );
 	$subject = esc_html( $message );
 	$headers = [ 'Content-Type: text/html; charset=UTF-8' ];
 
-	wp_mail( $to, $subject, $body, $headers );
+	wp_mail(
+		$to,
+		$subject,
+		$body,
+		$headers
+	);
 }
