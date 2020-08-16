@@ -10,7 +10,13 @@
 namespace WholesomeCode\WholesomePublishing\EmailNotifications; // @codingStandardsIgnoreLine
 
 use const WholesomeCode\WholesomePublishing\PLUGIN_PREFIX;
+use const WholesomeCode\WholesomePublishing\ROOT_DIR;
 use const WholesomeCode\WholesomePublishing\SidebarComments\META_KEY_BLOCK_COMMENTS;
+
+use const WholesomeCode\WholesomePublishing\EmailNotifications\UserSettings\META_KEY_EMAIL_NOTIFICATION_IS_POST_AUTHOR;
+use const WholesomeCode\WholesomePublishing\EmailNotifications\UserSettings\META_KEY_EMAIL_NOTIFICATION_IS_COMMENT_REPLY;
+use const WholesomeCode\WholesomePublishing\EmailNotifications\UserSettings\META_KEY_EMAIL_NOTIFICATION_IS_THREAD_REPLY;
+use const WholesomeCode\WholesomePublishing\EmailNotifications\UserSettings\META_KEY_EMAIL_NOTIFICATION_IS_POST_CONTRIBUTOR;
 
 /**
  * Meta Keys:
@@ -33,6 +39,14 @@ function setup() : void {
 	foreach ( $post_types as $post_type ) {
 		add_action( 'rest_after_insert_' . $post_type, __NAMESPACE__ . '\\handle_emails', 10, 3 );
 	}
+
+	/**
+	 * User Settings.
+	 *
+	 * User Settings for Email Notifications.
+	 */
+	require_once ROOT_DIR . '/inc/email-notifications/user-settings.php';
+	UserSettings\setup();
 }
 
 function handle_emails( $post, $request, $creating = true ) {
@@ -94,7 +108,8 @@ function handle_emails( $post, $request, $creating = true ) {
 					$post->post_author,
 					$comment['authorID'],
 					esc_html__( '[username] has commented on your post.', 'wholesome-publishing' ),
-					$comments_new
+					$comments_new,
+					'author'
 				);
 			}
 		}
@@ -111,7 +126,8 @@ function handle_emails( $post, $request, $creating = true ) {
 					$post->post_author,
 					$comment['authorID'],
 					esc_html__( '[username] has replied to your comment.', 'wholesome-publishing' ),
-					$comments_new
+					$comments_new,
+					'comment'
 				);
 			}
 
@@ -127,7 +143,8 @@ function handle_emails( $post, $request, $creating = true ) {
 					$comment_parent['authorID'],
 					$comment['authorID'],
 					esc_html__( '[username] has replied to your comment.', 'wholesome-publishing' ),
-					$comments_new
+					$comments_new,
+					'comment'
 				);
 				$contacted_authors[] = (int) $comment_parent['authorID'];
 			}
@@ -165,7 +182,8 @@ function handle_emails( $post, $request, $creating = true ) {
 					$comment_child['authorID'],
 					$comment['authorID'],
 					esc_html__( '[username] has replied to a comment.', 'wholesome-publishing' ),
-					$comments_new
+					$comments_new,
+					'thread'
 				);
 				$contacted_authors[] = (int) $comment_parent['authorID'];
 			}
@@ -180,7 +198,8 @@ function handle_emails( $post, $request, $creating = true ) {
 					$post_contributor_id,
 					$comment['authorID'],
 					esc_html__( '[username] has commented on a post.', 'wholesome-publishing' ),
-					$comments_new
+					$comments_new,
+					'contributor'
 				);
 			}
 		}
@@ -189,13 +208,43 @@ function handle_emails( $post, $request, $creating = true ) {
 	update_post_meta( $post->ID, META_KEY_BLOCK_COMMENTS_PREVIOUS, $comments );
 }
 
-function send_email( $post_id, $recipient_id, $commenter_id, $message, $comments ) {
+function send_email( $post_id, $recipient_id, $commenter_id, $message, $comments, $message_type ) {
 
 	$commenter_user = get_userdata( $commenter_id );
 	$recipient_user = get_userdata( $recipient_id );
 
 	if ( ! $post_id || ! $recipient_user || ! $commenter_user ) {
 		return;
+	}
+
+	if ( (int) $recipient_id === (int) $commenter_id ) {
+		return false;
+	}
+
+	$do_post_author_notification      = get_user_meta( $recipient_id, META_KEY_EMAIL_NOTIFICATION_IS_POST_AUTHOR, true );
+	$do_comment_reply_notification    = get_user_meta( $recipient_id, META_KEY_EMAIL_NOTIFICATION_IS_COMMENT_REPLY, true );
+	$do_thread_reply_notification     = get_user_meta( $recipient_id, META_KEY_EMAIL_NOTIFICATION_IS_THREAD_REPLY, true );
+	$do_post_contributor_notification = get_user_meta( $recipient_id, META_KEY_EMAIL_NOTIFICATION_IS_POST_CONTRIBUTOR, true );
+
+	$do_post_author_notification      = 'false' !== $do_post_author_notification;
+	$do_comment_reply_notification    = 'false' !== $do_comment_reply_notification;
+	$do_thread_reply_notification     = 'false' !== $do_thread_reply_notification;
+	$do_post_contributor_notification = 'false' !== $do_post_contributor_notification;
+
+	if ( 'author' === $message_type && ! $do_post_author_notification ) {
+		return false;
+	}
+
+	if ( 'comment' === $message_type && ! $do_comment_reply_notification ) {
+		return false;
+	}
+
+	if ( 'thread' === $message_type && ! $do_thread_reply_notification ) {
+		return false;
+	}
+
+	if ( 'contributor' === $message_type && ! $do_post_contributor_notification ) {
+		return false;
 	}
 
 	$commenter_username   = '';
@@ -245,12 +294,12 @@ function send_email( $post_id, $recipient_id, $commenter_id, $message, $comments
 	$body .= '</li>';
 	$body .= '</ul>';
 
-	// $body .= '<p>';
-	// $body .= esc_html__( 'To opt out of these emails ', 'wholesome-publishing' );
-	// $body .= '<a href="' . get_edit_profile_url( $recipient_id ) . '#wholesome-publishing-email-settings">';
-	// $body .= esc_html__( 'alter your email preferences', 'wholesome-publishing' );
-	// $body .= '</a>.';
-	// $body .= '</p>';
+	$body .= '<p>';
+	$body .= esc_html__( 'To opt out of these emails ', 'wholesome-publishing' );
+	$body .= '<a href="' . get_edit_profile_url( $recipient_id ) . '#wholesome-publishing-email-settings">';
+	$body .= esc_html__( 'alter your email preferences', 'wholesome-publishing' );
+	$body .= '</a>.';
+	$body .= '</p>';
 
 	$to      = sanitize_email( $recipient_email );
 	$subject = esc_html( $message );
