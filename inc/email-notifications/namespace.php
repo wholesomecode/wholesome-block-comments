@@ -93,7 +93,7 @@ function handle_emails( $post, $request, $creating = true ) {
 					$post->ID,
 					$post->post_author,
 					$comment['authorID'],
-					esc_html__( '[username] has commented on a post that you authored.', 'wholesome-publishing' ),
+					esc_html__( '[username] has commented on your post.', 'wholesome-publishing' ),
 					$comments_new
 				);
 			}
@@ -110,7 +110,7 @@ function handle_emails( $post, $request, $creating = true ) {
 					$post->ID,
 					$post->post_author,
 					$comment['authorID'],
-					esc_html__( '[username] has replied to a comment that you authored.', 'wholesome-publishing' ),
+					esc_html__( '[username] has replied to your comment.', 'wholesome-publishing' ),
 					$comments_new
 				);
 			}
@@ -164,7 +164,7 @@ function handle_emails( $post, $request, $creating = true ) {
 					$post->ID,
 					$comment_child['authorID'],
 					$comment['authorID'],
-					esc_html__( '[username] has replied to a comment that you also replied to.', 'wholesome-publishing' ),
+					esc_html__( '[username] has replied to a comment.', 'wholesome-publishing' ),
 					$comments_new
 				);
 				$contacted_authors[] = (int) $comment_parent['authorID'];
@@ -179,7 +179,7 @@ function handle_emails( $post, $request, $creating = true ) {
 					$post->ID,
 					$post_contributor_id,
 					$comment['authorID'],
-					esc_html__( '[username] has commented on a post that you have contributed to.', 'wholesome-publishing' ),
+					esc_html__( '[username] has commented on a post.', 'wholesome-publishing' ),
 					$comments_new
 				);
 			}
@@ -245,12 +245,12 @@ function send_email( $post_id, $recipient_id, $commenter_id, $message, $comments
 	$body .= '</li>';
 	$body .= '</ul>';
 
-	$body .= '<p>';
-	$body .= esc_html__( 'To opt out of these emails ', 'wholesome-publishing' );
-	$body .= '<a href="' . get_edit_profile_url( $recipient_id ) . '#wholesome-publishing-email-settings">';
-	$body .= esc_html__( 'alter your email preferences', 'wholesome-publishing' );
-	$body .= '</a>.';
-	$body .= '</p>';
+	// $body .= '<p>';
+	// $body .= esc_html__( 'To opt out of these emails ', 'wholesome-publishing' );
+	// $body .= '<a href="' . get_edit_profile_url( $recipient_id ) . '#wholesome-publishing-email-settings">';
+	// $body .= esc_html__( 'alter your email preferences', 'wholesome-publishing' );
+	// $body .= '</a>.';
+	// $body .= '</p>';
 
 	$to      = sanitize_email( $recipient_email );
 	$subject = esc_html( $message );
