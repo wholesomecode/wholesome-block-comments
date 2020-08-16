@@ -81,29 +81,20 @@ function handle_emails( $post, $request, $creating = true ) {
 		);
 	}
 
-	// When we do the check, we don't want the original author emailing.
-	if ( ! in_array( (int) $post->post_author, $contacted_authors, true ) ) {
-		$contacted_authors[] = (int) $post->post_author;
-	}
-
 	foreach ( $comments_new as $comment ) {
 
 		// Don't send emails for empty comments.
-		if ( empty( trim( $comment['comment'] ) ) ) {
+		if ( empty( $comment['comment'] ) ) {
 			continue;
-		}
-
-		// When we do the check, we don't want the comment author emailing.
-		if ( ! in_array( (int) $comment['authorID'], $contacted_authors, true ) ) {
-			$contacted_authors[] = (int) $comment['authorID'];
 		}
 
 		// Comment is new, email original author.
 		if ( 0 === (int) $comment['parent'] ) {
 			// Ensure comment author is not original author.
 			if ( (int) $post->post_author !== (int) $comment['authorID'] ) {
+
 				// Email original author: username has left a comment on a post you authored.
-				send_email(
+				$email_sent = send_email(
 					$post->ID,
 					$post->post_author,
 					$comment['authorID'],
@@ -111,63 +102,49 @@ function handle_emails( $post, $request, $creating = true ) {
 					$comments_new,
 					'author'
 				);
+
+				if ( $email_sent ) {
+					$contacted_authors[] = (int) $post->post_author;
+				}
 			}
 		}
 
 		// Comment is reply.
 		if ( 0 !== (int) $comment['parent'] ) {
 
-			// Email original author.
-			// Ensure comment author is not original author.
-			if ( (int) $post->post_author !== (int) $comment['authorID'] ) {
-				// Email original author: username has replied to a comment on a post you authored.
-				send_email(
-					$post->ID,
-					$post->post_author,
-					$comment['authorID'],
-					esc_html__( '[username] has replied to your comment.', 'wholesome-publishing' ),
-					$comments_new,
-					'comment'
-				);
-			}
-
 			// Email comment parent author.
-			$key            = array_search( $comment['parent'], array_column( $comments, 'dateTime' ), true );
+			$key            = array_search( $comment['parent'], array_column( $comments, 'dateTime' ) );
 			$comment_parent = $comments[ $key ];
 
 			// Ensure comment author is not original comment author, and is not the parent author (already mailed, or it is them)
-			if ( $comment_parent['authorID'] !== $comment['authorID'] && (int) $comment_parent['authorID'] !== (int) $post->post_author ) {
-				// Email parent comment author: username has replied to your comment.
-				send_email(
-					$post->ID,
-					$comment_parent['authorID'],
-					$comment['authorID'],
-					esc_html__( '[username] has replied to your comment.', 'wholesome-publishing' ),
-					$comments_new,
-					'comment'
-				);
+			if ( in_array( $comment_parent['authorID'], $contacted_authors, true ) ) {
+				continue;
+			}
+
+			// Email parent comment author: username has replied to your comment.
+			$sent_email = send_email(
+				$post->ID,
+				$comment_parent['authorID'],
+				$comment['authorID'],
+				esc_html__( '[username] has replied to your comment.', 'wholesome-publishing' ),
+				$comments_new,
+				'comment'
+			);
+
+			if ( $sent_email ) {
 				$contacted_authors[] = (int) $comment_parent['authorID'];
 			}
 
 			// Email thead commentators.
 			foreach ( $comments as $comment_child ) {
+
 				// Not a sub comment, bail.
-				if ( 0 !== (int) $comment_child ) {
+				if ( 0 === (int) $comment_child['parent'] ) {
 					continue;
 				}
 
 				// Not a sub comment of the parent post, bail.
 				if ( $comment_child['parent'] !== $comment_parent['dateTime'] ) {
-					continue;
-				}
-
-				// Comment is by original author, bail.
-				if ( (int) $comment_child['authorID'] === (int) $post->post_author ) {
-					continue;
-				}
-
-				// Comment is by comment author, bail.
-				if ( $comment_child['authorID'] === $comment_parent['authorID'] ) {
 					continue;
 				}
 
@@ -177,7 +154,7 @@ function handle_emails( $post, $request, $creating = true ) {
 				}
 
 				// Email thread contributor: username has replied to a comment you have replied to.
-				send_email(
+				$sent_email = send_email(
 					$post->ID,
 					$comment_child['authorID'],
 					$comment['authorID'],
@@ -185,15 +162,17 @@ function handle_emails( $post, $request, $creating = true ) {
 					$comments_new,
 					'thread'
 				);
-				$contacted_authors[] = (int) $comment_parent['authorID'];
+				if ( $sent_email ) {
+					$contacted_authors[] = (int) $comment_child['authorID'];
+				}
 			}
 		}
 
 		// Email post contributors.
 		foreach ( $post_contributors as $post_contributor_id ) {
-			if ( ! in_array( $post_contributor_id, $contacted_authors, true ) ) {
+			if ( ! in_array( (int) $post_contributor_id, $contacted_authors, true ) ) {
 				// Email post contributor: username has replied to a post you have contributed to.
-				send_email(
+				$sent_email = send_email(
 					$post->ID,
 					$post_contributor_id,
 					$comment['authorID'],
@@ -201,6 +180,9 @@ function handle_emails( $post, $request, $creating = true ) {
 					$comments_new,
 					'contributor'
 				);
+				if ( $sent_email ) {
+					$contacted_authors[] = (int) $post_contributor_id;
+				}
 			}
 		}
 	}
@@ -208,13 +190,13 @@ function handle_emails( $post, $request, $creating = true ) {
 	update_post_meta( $post->ID, META_KEY_BLOCK_COMMENTS_PREVIOUS, $comments );
 }
 
-function send_email( $post_id, $recipient_id, $commenter_id, $message, $comments, $message_type ) {
+function send_email( $post_id, $recipient_id, $commenter_id, $message, $comments, $message_type ) : bool {
 
 	$commenter_user = get_userdata( $commenter_id );
 	$recipient_user = get_userdata( $recipient_id );
 
 	if ( ! $post_id || ! $recipient_user || ! $commenter_user ) {
-		return;
+		return false;
 	}
 
 	if ( (int) $recipient_id === (int) $commenter_id ) {
@@ -305,7 +287,7 @@ function send_email( $post_id, $recipient_id, $commenter_id, $message, $comments
 	$subject = esc_html( $message );
 	$headers = [ 'Content-Type: text/html; charset=UTF-8' ];
 
-	wp_mail(
+	return wp_mail(
 		$to,
 		$subject,
 		$body,
