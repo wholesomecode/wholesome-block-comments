@@ -16,6 +16,7 @@ Wholesome Publishing brings some wholesome editing features to the WordPress Blo
 Features include:
 - Ability to add threaded comments to individual blocks.
 - Ability to mark a block as draft, so that it does not appear on the front end.
+- Granular email notifications, for posts you have authored, commented on or contributed to.
 
 ## Screenshots
 
@@ -53,6 +54,13 @@ Features include:
 	<kbd><img src="https://github.com/wholesomecode/wholesome-publishing/blob/stable/assets/screenshot-6.gif" alt="Creating a block and setting it to draft" width="500px"/></kbd>
 	<br/>6. Creating a block and setting it to draft
 </p>
+<br/>
+
+<p align="center">
+	<kbd><img src="https://github.com/wholesomecode/wholesome-publishing/blob/stable/assets/screenshot-7.png" alt="Screenshot of block comments" width="500px"/></kbd>
+	<br/>7. Granular email notification settings
+</p>
+
 
 ## Requesting bugs / features
 Just create a GitHub issue in the repository: https://github.com/wholesomecode/wholesome-publishing/issues

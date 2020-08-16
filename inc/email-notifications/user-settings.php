@@ -71,7 +71,7 @@ function add_user_profile_field( $user ) : void {
 								type="checkbox"
 								value="true"
 							/>
-							<?php esc_html_e( 'Receive notifications for comments on posts you authored', 'wholesome-publishing' ); ?>
+							<?php esc_html_e( 'Receive notifications for comments on posts that you have authored', 'wholesome-publishing' ); ?>
 						</label>
 						<br/>
 						<label for="<?php echo esc_attr( META_KEY_EMAIL_NOTIFICATION_IS_COMMENT_REPLY ); ?>">
@@ -93,7 +93,7 @@ function add_user_profile_field( $user ) : void {
 								type="checkbox"
 								value="true"
 							/>
-							<?php esc_html_e( 'Receive notifications for replies to a comment you replied to', 'wholesome-publishing' ); ?>
+							<?php esc_html_e( 'Receive notifications for replies to a comment that you have replied to', 'wholesome-publishing' ); ?>
 						</label>
 						<br/>
 						<label for="<?php echo esc_attr( META_KEY_EMAIL_NOTIFICATION_IS_POST_CONTRIBUTOR ); ?>">
@@ -104,7 +104,7 @@ function add_user_profile_field( $user ) : void {
 								type="checkbox"
 								value="true"
 							/>
-							<?php esc_html_e( 'Receive notifications for comments on posts you contributed to', 'wholesome-publishing' ); ?>
+							<?php esc_html_e( 'Receive notifications for comments on posts you have contributed to', 'wholesome-publishing' ); ?>
 						</label>
 					</fieldset>
 				</td>

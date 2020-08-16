@@ -19,6 +19,7 @@ Features include:
 
 * Ability to add threaded comments to individual blocks.
 * Ability to mark a block as draft, so that it does not appear on the front end.
+* Granular email notifications, for posts you have authored, commented on or contributed to.
 
 == Installation ==
 
@@ -34,6 +35,11 @@ To install Wholesome Publishing:
 1. Ensure you have turned on `Show Avatars` from the WordPress dashboard `Settings > Discussion` panel.
 2. Ensure you have registered an Avatar for your email address at [Gravatar](gravatar.com).
 
+= I've altered my email settings, but I am still getting email notifications =
+
+1. Edit your email settings via your profile
+2. Ensure you uncheck "Receive notifications for comments on posts you have contributed to", as a comment counts as a contribution.
+
 == Screenshots ==
 
 1. Screenshot of block comments
@@ -42,6 +48,7 @@ To install Wholesome Publishing:
 4. Adding a threaded reply to a block comment
 5. Edit your own comments, blocks are highlighted when you select a comment
 6. Creating a block and setting it to draft
+7. Granular email notification settings
 
 == Changelog ==
 
