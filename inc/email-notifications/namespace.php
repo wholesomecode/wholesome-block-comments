@@ -75,7 +75,7 @@ function handle_emails( $post, $request, $creating = true ) {
 	foreach ( $comments_new as $comment ) {
 
 		// Don't send emails for empty comments.
-		if ( empty( $comment['comment'] ) ) {
+		if ( empty( trim( $comment['comment'] ) ) ) {
 			continue;
 		}
 
@@ -116,8 +116,9 @@ function handle_emails( $post, $request, $creating = true ) {
 			}
 
 			// Email comment parent author.
-			$key            = array_search( $comment['parent'], array_column( $comments, 'dateTime' ) );
+			$key            = array_search( $comment['parent'], array_column( $comments, 'dateTime' ), true );
 			$comment_parent = $comments[ $key ];
+
 			// Ensure comment author is not original comment author, and is not the parent author (already mailed, or it is them)
 			if ( $comment_parent['authorID'] !== $comment['authorID'] && (int) $comment_parent['authorID'] !== (int) $post->post_author ) {
 				// Email parent comment author: username has replied to your comment.
@@ -244,12 +245,12 @@ function send_email( $post_id, $recipient_id, $commenter_id, $message, $comments
 	$body .= '</li>';
 	$body .= '</ul>';
 
-	// $body .= '<p>';
-	// $body .= esc_html__( 'To opt out of these emails ', 'wholesome-publishing' );
-	// $body .= '<a href="' . get_edit_profile_url( $recipient_id ) . '#wholesome-publishing-email-settings">';
-	// $body .= esc_html__( 'alter your email preferences', 'wholesome-publishing' );
-	// $body .= '</a>.';
-	// $body .= '</p>';
+	$body .= '<p>';
+	$body .= esc_html__( 'To opt out of these emails ', 'wholesome-publishing' );
+	$body .= '<a href="' . get_edit_profile_url( $recipient_id ) . '#wholesome-publishing-email-settings">';
+	$body .= esc_html__( 'alter your email preferences', 'wholesome-publishing' );
+	$body .= '</a>.';
+	$body .= '</p>';
 
 	$to      = sanitize_email( $recipient_email );
 	$subject = esc_html( $message );

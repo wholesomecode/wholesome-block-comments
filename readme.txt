@@ -3,7 +3,7 @@ Contributors:      wholesomecode, mattwatsoncodes
 Donate Link:
 Tags:              block, comments, draft
 Requires at least: 5.3.2
-Tested up to:      5.3.2
+Tested up to:      5.5.0
 Stable tag:        1.3.0
 Requires PHP:      7.2.0
 License:           GPL-2.0-or-later
@@ -66,3 +66,4 @@ To install Wholesome Publishing:
 
 = 1.3.0 =
 * Feature: Email notifications if someone comments on your post or replies to your comment.
+* Bug Fix: Rendering React on front end.
