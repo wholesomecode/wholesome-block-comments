@@ -48,13 +48,8 @@ function setup() : void {
  */
 function register_meta_fields() : void {
 
-	// Get all public post types.
-	$post_types = get_post_types(
-		[
-			'public' => true,
-		],
-		'names'
-	);
+	// Get all post types.
+	$post_types = get_post_types();
 
 	// Register meta for all public post types.
 	foreach ( $post_types as $post_type ) {

@@ -33,7 +33,7 @@ function setup() : void {
 	// Note, originally used `enqueue_block_editor_assets` hook, however
 	// there was an issue with third party blocks. Solved with this:
 	// https://github.com/WordPress/gutenberg/issues/9757#issuecomment-486088850
-	add_action( 'init', __NAMESPACE__ . '\\enqueue_block_editor_assets', 10 );
+	add_action( 'admin_enqueue_scripts', __NAMESPACE__ . '\\enqueue_block_editor_assets', 10 );
 
 	/**
 	 * Load plugin features.
@@ -56,6 +56,14 @@ function setup() : void {
 	 */
 	require_once ROOT_DIR . '/inc/sidebar-comments/namespace.php';
 	SidebarComments\setup();
+
+	/**
+	 * Email Notifications.
+	 *
+	 * Handle email notifications.
+	 */
+	require_once ROOT_DIR . '/inc/email-notifications/namespace.php';
+	EmailNotifications\setup();
 }
 
 /**

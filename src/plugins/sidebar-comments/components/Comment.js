@@ -44,6 +44,7 @@ class Comment extends Component {
 
 		this.handleBlur = this.handleBlur.bind( this );
 		this.handleFocus = this.handleFocus.bind( this );
+		this.comment = null;
 	}
 
 	handleBlur( e ) {
